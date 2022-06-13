@@ -38,7 +38,6 @@
     "fs-extra": "^10.1.0",
     "hardhat": "^2.9.9",
     "hardhat-gas-reporter": "^1.0.8",
-    "husky": "^8.0.1",
     "lint-staged": "^13.0.1",
     "lodash": "^4.17.21",
     "mocha": "^10.0.0",
@@ -78,12 +77,15 @@
     "lint": "yarn lint:sol && yarn lint:ts && yarn prettier:check",
     "lint:sol": "solhint --config ./.solhint.json --max-warnings 0 \"contracts/**/*.sol\"",
     "lint:ts": "eslint --config ./.eslintrc.yaml --ignore-path ./.eslintignore --ext .js,.ts .",
-    "postinstall": "husky install",
     "postpublish": "pinst --enable",
     "prepublishOnly": "pinst --disable",
     "prettier": "prettier --config ./.prettierrc.yaml --write \"**/*.{js,json,md,sol,ts,yaml,yml}\"",
     "prettier:check": "prettier --check --config ./.prettierrc.yaml \"**/*.{js,json,md,sol,ts,yaml,yml}\"",
     "test": "hardhat test",
     "typechain": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat typechain"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.6.0",
+    "@routerprotocol/router-crosstalk": "^0.1.3"
   }
 }
