@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./ICrossChainERC1155.sol";
+import "./extensions/ICrossChainERC1155MetadataURI.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@routerprotocol/router-crosstalk/contracts/RouterCrossTalk.sol";
@@ -38,7 +39,7 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, AccessControl, Router
     {
         return
             interfaceId == type(ICrossChainERC1155).interfaceId ||
-            interfaceId == type(IERC1155MetadataURI).interfaceId ||
+            interfaceId == type(ICrossChainERC1155MetadataURI).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
