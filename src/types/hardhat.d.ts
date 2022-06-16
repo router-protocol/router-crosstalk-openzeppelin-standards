@@ -109,10 +109,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ICrossChainERC1155MetadataURI__factory>;
     getContractFactory(
-      name: "ICrossChainERC1155MetadataURI",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ICrossChainERC1155MetadataURI__factory>;
-    getContractFactory(
       name: "ICrossChainERC1155",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ICrossChainERC1155__factory>;
@@ -136,6 +132,10 @@ declare module "hardhat/types/runtime" {
       name: "CrossChainERC20Pausable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CrossChainERC20Pausable__factory>;
+    getContractFactory(
+      name: "ICrossChainERC20Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ICrossChainERC20Metadata__factory>;
     getContractFactory(
       name: "ICrossChainERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -262,11 +262,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ICrossChainERC1155MetadataURI>;
     getContractAt(
-      name: "ICrossChainERC1155MetadataURI",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ICrossChainERC1155MetadataURI>;
-    getContractAt(
       name: "ICrossChainERC1155",
       address: string,
       signer?: ethers.Signer
@@ -296,6 +291,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.CrossChainERC20Pausable>;
+    getContractAt(
+      name: "ICrossChainERC20Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ICrossChainERC20Metadata>;
     getContractAt(
       name: "ICrossChainERC20",
       address: string,

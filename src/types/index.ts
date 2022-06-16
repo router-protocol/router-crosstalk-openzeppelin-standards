@@ -68,5 +68,7 @@ export type { CrossChainERC20FlashMint } from "./contracts/token/ERC20/extension
 export { CrossChainERC20FlashMint__factory } from "./factories/contracts/token/ERC20/extensions/CrossChainERC20FlashMint__factory";
 export type { CrossChainERC20Pausable } from "./contracts/token/ERC20/extensions/CrossChainERC20Pausable";
 export { CrossChainERC20Pausable__factory } from "./factories/contracts/token/ERC20/extensions/CrossChainERC20Pausable__factory";
+export type { ICrossChainERC20Metadata } from "./contracts/token/ERC20/extensions/ICrossChainERC20Metadata";
+export { ICrossChainERC20Metadata__factory } from "./factories/contracts/token/ERC20/extensions/ICrossChainERC20Metadata__factory";
 export type { ICrossChainERC20 } from "./contracts/token/ERC20/ICrossChainERC20";
 export { ICrossChainERC20__factory } from "./factories/contracts/token/ERC20/ICrossChainERC20__factory";

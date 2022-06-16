@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./ICrossChainERC20.sol";
+import "./extensions/ICrossChainERC20Metadata.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@routerprotocol/router-crosstalk/contracts/RouterCrossTalk.sol";
@@ -43,7 +44,7 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, AccessControl, RouterCrossT
     {
         return
             interfaceId == type(ICrossChainERC20).interfaceId ||
-            interfaceId == type(IERC20Metadata).interfaceId ||
+            interfaceId == type(ICrossChainERC20Metadata).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
