@@ -21,6 +21,18 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IAccessControl__factory>;
     getContractFactory(
+      name: "IERC3156FlashBorrower",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC3156FlashBorrower__factory>;
+    getContractFactory(
+      name: "IERC3156FlashLender",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC3156FlashLender__factory>;
+    getContractFactory(
+      name: "Pausable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Pausable__factory>;
+    getContractFactory(
       name: "ERC1155",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC1155__factory>;
@@ -81,21 +93,29 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ICrossChainERC1155__factory>;
     getContractFactory(
-      name: "IERC1155Receiver",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC1155Receiver__factory>;
-    getContractFactory(
-      name: "ERC1155Holder",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC1155Holder__factory>;
-    getContractFactory(
-      name: "ERC1155Receiver",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC1155Receiver__factory>;
-    getContractFactory(
       name: "CrossChainERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CrossChainERC20__factory>;
+    getContractFactory(
+      name: "CrossChainERC20Burnable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainERC20Burnable__factory>;
+    getContractFactory(
+      name: "CrossChainERC20Capped",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainERC20Capped__factory>;
+    getContractFactory(
+      name: "CrossChainERC20FlashMint",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainERC20FlashMint__factory>;
+    getContractFactory(
+      name: "CrossChainERC20Pausable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainERC20Pausable__factory>;
+    getContractFactory(
+      name: "CrossChainERC20FlashMint",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainERC20FlashMint__factory>;
     getContractFactory(
       name: "ICrossChainERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -111,6 +131,21 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.IAccessControl>;
+    getContractAt(
+      name: "IERC3156FlashBorrower",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC3156FlashBorrower>;
+    getContractAt(
+      name: "IERC3156FlashLender",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC3156FlashLender>;
+    getContractAt(
+      name: "Pausable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Pausable>;
     getContractAt(
       name: "ERC1155",
       address: string,
@@ -187,25 +222,35 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ICrossChainERC1155>;
     getContractAt(
-      name: "IERC1155Receiver",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC1155Receiver>;
-    getContractAt(
-      name: "ERC1155Holder",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC1155Holder>;
-    getContractAt(
-      name: "ERC1155Receiver",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC1155Receiver>;
-    getContractAt(
       name: "CrossChainERC20",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.CrossChainERC20>;
+    getContractAt(
+      name: "CrossChainERC20Burnable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainERC20Burnable>;
+    getContractAt(
+      name: "CrossChainERC20Capped",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainERC20Capped>;
+    getContractAt(
+      name: "CrossChainERC20FlashMint",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainERC20FlashMint>;
+    getContractAt(
+      name: "CrossChainERC20Pausable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainERC20Pausable>;
+    getContractAt(
+      name: "CrossChainERC20FlashMint",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainERC20FlashMint>;
     getContractAt(
       name: "ICrossChainERC20",
       address: string,
