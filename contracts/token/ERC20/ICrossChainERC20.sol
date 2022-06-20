@@ -33,16 +33,16 @@ interface ICrossChainERC20 is IERC20 {
     function fetchCrossChainGas() external view returns (uint256);
 
     /**
-     * @notice transferCrossChain Destroys `_amount` tokens from `_from` on the current chain
+     * @notice transferCrossChain Destroys `_amount` tokens from caller's account on the current chain
      * and calls an internal function to generate a crosschain communication request to chain `_chainID`
      * @param _chainID Destination ChainID
-     * @param _from Address of the Owner
+     * @param _recipient Address of the recipient on destination chain
      * @param _amount Number of tokens
      * @return bool returns true when completed
      */
     function transferCrossChain(
         uint8 _chainID,
-        address _from,
+        address _recipient,
         uint256 _amount
     ) external returns (bool);
 }

@@ -83,20 +83,20 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, AccessControl, RouterCrossT
     }
 
     /**
-     * @notice transferCrossChain Destroys `_amount` tokens from `_from` on the current chain
+     * @notice transferCrossChain Destroys `_amount` tokens from caller's account on the current chain
      * and calls an internal function to generate a crosschain communication request to chain `_chainID`
      * @param _chainID Destination ChainID
-     * @param _from Address of the Owner
+     * @param _recipient Address of the recipient on destination chain
      * @param _amount Number of tokens
      * @return bool returns true when completed
      */
     function transferCrossChain(
         uint8 _chainID,
-        address _from,
+        address _recipient,
         uint256 _amount
-    ) external returns (bool) {
-        _burn(_from, _amount);
-        _sendCrossChain(_chainID, _from, _amount);
+    ) external virtual override returns (bool) {
+        _burn(msg.sender, _amount);
+        _sendCrossChain(_chainID, _recipient, _amount);
         return true;
     }
 
@@ -105,11 +105,11 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, AccessControl, RouterCrossT
      */
     function _sendCrossChain(
         uint8 _chainID,
-        address _from,
+        address _recipient,
         uint256 _amount
     ) internal returns (bool) {
         bytes4 _selector = bytes4(keccak256("receiveCrossChain(address,uint256)"));
-        bytes memory _data = abi.encode(_from, _amount);
+        bytes memory _data = abi.encode(_recipient, _amount);
         bool success = routerSend(_chainID, _selector, _data, _crossChainGas);
         return success;
     }
@@ -134,12 +134,12 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, AccessControl, RouterCrossT
      *
      * NOTE: It can only be called by current contract.
      *
-     * @param _to Address of the Owner
+     * @param _recipient Address of the recipient on the destination chain
      * @param _amount Number of tokens
      * @return bool returns true when completed
      */
-    function receiveCrossChain(address _to, uint256 _amount) external isSelf returns (bool) {
-        _mint(_to, _amount);
+    function receiveCrossChain(address _recipient, uint256 _amount) external isSelf returns (bool) {
+        _mint(_recipient, _amount);
         return true;
     }
 }

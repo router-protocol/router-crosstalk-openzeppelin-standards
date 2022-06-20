@@ -339,7 +339,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
     transferBatchCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -348,7 +348,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
@@ -422,7 +422,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
   transferBatchCrossChain(
     _chainID: PromiseOrValue<BigNumberish>,
-    _from: PromiseOrValue<string>,
+    _recipient: PromiseOrValue<string>,
     _ids: PromiseOrValue<BigNumberish>[],
     _amounts: PromiseOrValue<BigNumberish>[],
     _data: PromiseOrValue<BytesLike>,
@@ -431,7 +431,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
   transferCrossChain(
     _chainID: PromiseOrValue<BigNumberish>,
-    _from: PromiseOrValue<string>,
+    _recipient: PromiseOrValue<string>,
     _id: PromiseOrValue<BigNumberish>,
     _amount: PromiseOrValue<BigNumberish>,
     _data: PromiseOrValue<BytesLike>,
@@ -505,7 +505,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
     transferBatchCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -514,7 +514,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
@@ -638,7 +638,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
     transferBatchCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -647,7 +647,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
@@ -724,7 +724,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
     transferBatchCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -733,7 +733,7 @@ export interface ICrossChainERC1155 extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,

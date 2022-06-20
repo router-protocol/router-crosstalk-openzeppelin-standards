@@ -244,7 +244,7 @@ export interface ICrossChainERC20 extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -301,7 +301,7 @@ export interface ICrossChainERC20 extends BaseContract {
 
   transferCrossChain(
     _chainID: PromiseOrValue<BigNumberish>,
-    _from: PromiseOrValue<string>,
+    _recipient: PromiseOrValue<string>,
     _amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -358,7 +358,7 @@ export interface ICrossChainERC20 extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
@@ -440,7 +440,7 @@ export interface ICrossChainERC20 extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -500,7 +500,7 @@ export interface ICrossChainERC20 extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

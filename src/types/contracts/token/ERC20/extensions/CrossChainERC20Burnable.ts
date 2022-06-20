@@ -600,7 +600,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
     name(overrides?: CallOverrides): Promise<[string]>;
 
     receiveCrossChain(
-      _to: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -658,7 +658,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -767,7 +767,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
   name(overrides?: CallOverrides): Promise<string>;
 
   receiveCrossChain(
-    _to: PromiseOrValue<string>,
+    _recipient: PromiseOrValue<string>,
     _amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -825,7 +825,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
 
   transferCrossChain(
     _chainID: PromiseOrValue<BigNumberish>,
-    _from: PromiseOrValue<string>,
+    _recipient: PromiseOrValue<string>,
     _amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -934,7 +934,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
     name(overrides?: CallOverrides): Promise<string>;
 
     receiveCrossChain(
-      _to: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
@@ -992,7 +992,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
@@ -1215,7 +1215,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     receiveCrossChain(
-      _to: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -1273,7 +1273,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -1389,7 +1389,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     receiveCrossChain(
-      _to: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -1447,7 +1447,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

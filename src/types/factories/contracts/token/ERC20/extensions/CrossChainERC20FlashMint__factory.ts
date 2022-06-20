@@ -700,7 +700,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_to",
+        name: "_recipient",
         type: "address",
       },
       {
@@ -917,7 +917,7 @@ const _abi = [
       },
       {
         internalType: "address",
-        name: "_from",
+        name: "_recipient",
         type: "address",
       },
       {

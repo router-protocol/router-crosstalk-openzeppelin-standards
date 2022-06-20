@@ -66,5 +66,5 @@ interface ICrossChainERC1155 is IERC1155 {
         uint256[] memory _ids,
         uint256[] memory _amounts,
         bytes memory _data
-    ) external virtual override returns (bool)
+    ) external returns (bool);
 }
