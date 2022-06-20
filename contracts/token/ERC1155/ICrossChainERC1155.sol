@@ -33,10 +33,10 @@ interface ICrossChainERC1155 is IERC1155 {
     function fetchCrossChainGas() external view returns (uint256);
 
     /**
-     * @notice transferCrossChain Destroys `_amount` tokens of token type `_id` from `_from` on the current chain
+     * @notice transferCrossChain Destroys `_amount` tokens of token type `_id` from caller's account on the current chain
      * and calls an internal function to generate a crosschain communication request to chain `_chainID`
      * @param _chainID Destination ChainID
-     * @param _from Address of the Owner
+     * @param _recipient Address of the recipient on destination chain
      * @param _id TokenId
      * @param _amount Number of tokens
      * @param _data Additional data used to mint on destination side
@@ -44,17 +44,17 @@ interface ICrossChainERC1155 is IERC1155 {
      */
     function transferCrossChain(
         uint8 _chainID,
-        address _from,
+        address _recipient,
         uint256 _id,
         uint256 _amount,
         bytes memory _data
     ) external returns (bool);
 
     /**
-     * @notice transferBatchCrossChain Destroys `_amounts` tokens of token type `_ids` from `_from` on the current chain
+     * @notice transferBatchCrossChain Destroys `_amounts` tokens of token type `_ids` from caller's account on the current chain
      * and calls an internal function to generate a crosschain communication request to chain with `_chainID`
      * @param _chainID Destination ChainID
-     * @param _from Address of the owner
+     * @param _recipient Address of the recipient on destination chain
      * @param _ids TokenId
      * @param _amounts Number of tokens with `_ids`
      * @param _data Data with which tokens are minted on destination side
@@ -62,9 +62,9 @@ interface ICrossChainERC1155 is IERC1155 {
      */
     function transferBatchCrossChain(
         uint8 _chainID,
-        address _from,
+        address _recipient,
         uint256[] memory _ids,
         uint256[] memory _amounts,
         bytes memory _data
-    ) external returns (bool);
+    ) external virtual override returns (bool)
 }
