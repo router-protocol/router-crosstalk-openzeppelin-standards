@@ -32,10 +32,20 @@ export type { IERC20Metadata } from "./@openzeppelin/contracts/token/ERC20/exten
 export { IERC20Metadata__factory } from "./factories/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata__factory";
 export type { IERC20 } from "./@openzeppelin/contracts/token/ERC20/IERC20";
 export { IERC20__factory } from "./factories/@openzeppelin/contracts/token/ERC20/IERC20__factory";
+export type { ERC777 } from "./@openzeppelin/contracts/token/ERC777/ERC777";
+export { ERC777__factory } from "./factories/@openzeppelin/contracts/token/ERC777/ERC777__factory";
+export type { IERC777 } from "./@openzeppelin/contracts/token/ERC777/IERC777";
+export { IERC777__factory } from "./factories/@openzeppelin/contracts/token/ERC777/IERC777__factory";
+export type { IERC777Recipient } from "./@openzeppelin/contracts/token/ERC777/IERC777Recipient";
+export { IERC777Recipient__factory } from "./factories/@openzeppelin/contracts/token/ERC777/IERC777Recipient__factory";
+export type { IERC777Sender } from "./@openzeppelin/contracts/token/ERC777/IERC777Sender";
+export { IERC777Sender__factory } from "./factories/@openzeppelin/contracts/token/ERC777/IERC777Sender__factory";
 export type { ERC165 } from "./@openzeppelin/contracts/utils/introspection/ERC165";
 export { ERC165__factory } from "./factories/@openzeppelin/contracts/utils/introspection/ERC165__factory";
 export type { IERC165 } from "./@openzeppelin/contracts/utils/introspection/IERC165";
 export { IERC165__factory } from "./factories/@openzeppelin/contracts/utils/introspection/IERC165__factory";
+export type { IERC1820Registry } from "./@openzeppelin/contracts/utils/introspection/IERC1820Registry";
+export { IERC1820Registry__factory } from "./factories/@openzeppelin/contracts/utils/introspection/IERC1820Registry__factory";
 export type { IGenericHandler } from "./@routerprotocol/router-crosstalk/contracts/interfaces/IGenericHandler";
 export { IGenericHandler__factory } from "./factories/@routerprotocol/router-crosstalk/contracts/interfaces/IGenericHandler__factory";
 export type { IRouterCrossTalk } from "./@routerprotocol/router-crosstalk/contracts/interfaces/IRouterCrossTalk";
@@ -72,3 +82,7 @@ export type { ICrossChainERC20Metadata } from "./contracts/token/ERC20/extension
 export { ICrossChainERC20Metadata__factory } from "./factories/contracts/token/ERC20/extensions/ICrossChainERC20Metadata__factory";
 export type { ICrossChainERC20 } from "./contracts/token/ERC20/ICrossChainERC20";
 export { ICrossChainERC20__factory } from "./factories/contracts/token/ERC20/ICrossChainERC20__factory";
+export type { CrossChainERC777 } from "./contracts/token/ERC777/CrossChainERC777";
+export { CrossChainERC777__factory } from "./factories/contracts/token/ERC777/CrossChainERC777__factory";
+export type { ICrossChainERC777 } from "./contracts/token/ERC777/ICrossChainERC777";
+export { ICrossChainERC777__factory } from "./factories/contracts/token/ERC777/ICrossChainERC777__factory";
