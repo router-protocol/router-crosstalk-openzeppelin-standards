@@ -627,7 +627,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
     paused(overrides?: CallOverrides): Promise<[boolean]>;
 
     receiveCrossChain(
-      _to: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -701,7 +701,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
     transferBatchCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -710,7 +710,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
@@ -795,7 +795,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
   paused(overrides?: CallOverrides): Promise<boolean>;
 
   receiveCrossChain(
-    _to: PromiseOrValue<string>,
+    _recipient: PromiseOrValue<string>,
     _ids: PromiseOrValue<BigNumberish>[],
     _amounts: PromiseOrValue<BigNumberish>[],
     _data: PromiseOrValue<BytesLike>,
@@ -869,7 +869,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
   transferBatchCrossChain(
     _chainID: PromiseOrValue<BigNumberish>,
-    _from: PromiseOrValue<string>,
+    _recipient: PromiseOrValue<string>,
     _ids: PromiseOrValue<BigNumberish>[],
     _amounts: PromiseOrValue<BigNumberish>[],
     _data: PromiseOrValue<BytesLike>,
@@ -878,7 +878,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
   transferCrossChain(
     _chainID: PromiseOrValue<BigNumberish>,
-    _from: PromiseOrValue<string>,
+    _recipient: PromiseOrValue<string>,
     _id: PromiseOrValue<BigNumberish>,
     _amount: PromiseOrValue<BigNumberish>,
     _data: PromiseOrValue<BytesLike>,
@@ -963,7 +963,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
     paused(overrides?: CallOverrides): Promise<boolean>;
 
     receiveCrossChain(
-      _to: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -1037,7 +1037,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
     transferBatchCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -1046,7 +1046,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
@@ -1276,7 +1276,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
     paused(overrides?: CallOverrides): Promise<BigNumber>;
 
     receiveCrossChain(
-      _to: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -1350,7 +1350,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
     transferBatchCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -1359,7 +1359,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
@@ -1451,7 +1451,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
     paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     receiveCrossChain(
-      _to: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -1525,7 +1525,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
     transferBatchCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
@@ -1534,7 +1534,7 @@ export interface CrossChainERC1155Pausable extends BaseContract {
 
     transferCrossChain(
       _chainID: PromiseOrValue<BigNumberish>,
-      _from: PromiseOrValue<string>,
+      _recipient: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,

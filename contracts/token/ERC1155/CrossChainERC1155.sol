@@ -78,10 +78,10 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, AccessControl, Router
     }
 
     /**
-     * @notice transferCrossChain Destroys `_amount` tokens of token type `_id` from `_from` on the current chain
+     * @notice transferCrossChain Destroys `_amount` tokens of token type `_id` from caller's account on the current chain
      * and calls an internal function to generate a crosschain communication request to chain `_chainID`
      * @param _chainID Destination ChainID
-     * @param _from Address of the Owner
+     * @param _recipient Address of the recipient on destination chain
      * @param _id TokenId
      * @param _amount Number of tokens
      * @param _data Additional data used to mint on destination side
@@ -89,25 +89,25 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, AccessControl, Router
      */
     function transferCrossChain(
         uint8 _chainID,
-        address _from,
+        address _recipient,
         uint256 _id,
         uint256 _amount,
         bytes memory _data
     ) external virtual override returns (bool) {
-        _burn(_from, _id, _amount);
+        _burn(msg.sender, _id, _amount);
         uint256[] memory id = new uint256[](1);
         uint256[] memory amount = new uint256[](1);
         id[0] = _id;
         amount[0] = _amount;
-        _sendCrossChain(_chainID, _from, id, amount, _data);
+        _sendCrossChain(_chainID, _recipient, id, amount, _data);
         return true;
     }
 
     /**
-     * @notice transferBatchCrossChain Destroys `_amounts` tokens of token type `_ids` from `_from` on the current chain
+     * @notice transferBatchCrossChain Destroys `_amounts` tokens of token type `_ids` from caller's account on the current chain
      * and calls an internal function to generate a crosschain communication request to chain with `_chainID`
      * @param _chainID Destination ChainID
-     * @param _from Address of the owner
+     * @param _recipient Address of the recipient on destination chain
      * @param _ids TokenId
      * @param _amounts Number of tokens with `_ids`
      * @param _data Data with which tokens are minted on destination side
@@ -115,13 +115,13 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, AccessControl, Router
      */
     function transferBatchCrossChain(
         uint8 _chainID,
-        address _from,
+        address _recipient,
         uint256[] memory _ids,
         uint256[] memory _amounts,
         bytes memory _data
     ) external virtual override returns (bool) {
-        _burnBatch(_from, _ids, _amounts);
-        _sendCrossChain(_chainID, _from, _ids, _amounts, _data);
+        _burnBatch(msg.sender, _ids, _amounts);
+        _sendCrossChain(_chainID, _recipient, _ids, _amounts, _data);
         return true;
     }
 
@@ -130,13 +130,13 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, AccessControl, Router
      */
     function _sendCrossChain(
         uint8 _chainID,
-        address _from,
+        address _recipient,
         uint256[] memory _ids,
         uint256[] memory _amounts,
         bytes memory _data
     ) internal returns (bool) {
         bytes4 _selector = bytes4(keccak256("receiveCrossChain(address,uint256[],uint256[],bytes)"));
-        bytes memory data = abi.encode(_from, _ids, _amounts, _data);
+        bytes memory data = abi.encode(_recipient, _ids, _amounts, _data);
         bool success = routerSend(_chainID, _selector, data, _crossChainGas);
         return success;
     }
@@ -157,26 +157,26 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, AccessControl, Router
     }
 
     /**
-     * @notice receiveCrossChain Creates `_amount` tokens of token type `_id` to `_to` on the destination chain
+     * @notice receiveCrossChain Creates `_amounts` tokens of token type `_ids` to `_recipient` on the destination chain
      *
      * NOTE: It can only be called by current contract.
      *
-     * @param _to Address of the Owner
+     * @param _recipient Address of the recipient on destination chain
      * @param _ids TokenIds
      * @param _amounts Number of tokens with `_ids`
      * @param _data Additional data used to mint on destination side
      * @return bool returns true when completed
      */
     function receiveCrossChain(
-        address _to,
+        address _recipient,
         uint256[] memory _ids,
         uint256[] memory _amounts,
         bytes memory _data
     ) external isSelf returns (bool) {
         if (_ids.length == 1 && _amounts.length == 1) {
-            _mint(_to, _ids[0], _amounts[0], _data);
+            _mint(_recipient, _ids[0], _amounts[0], _data);
         } else {
-            _mintBatch(_to, _ids, _amounts, _data);
+            _mintBatch(_recipient, _ids, _amounts, _data);
         }
         return true;
     }
