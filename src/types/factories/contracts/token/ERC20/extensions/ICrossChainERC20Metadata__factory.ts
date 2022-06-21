@@ -167,45 +167,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_gas",
-        type: "uint256",
-      },
-    ],
-    name: "setCrossChainGas",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_feeToken",
-        type: "address",
-      },
-    ],
-    name: "setFeeAddress",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
-    ],
-    name: "setLinker",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "symbol",
     outputs: [
@@ -245,35 +206,6 @@ const _abi = [
       },
     ],
     name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint8",
-        name: "_chainID",
-        type: "uint8",
-      },
-      {
-        internalType: "address",
-        name: "_recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "transferCrossChain",
     outputs: [
       {
         internalType: "bool",

@@ -29,8 +29,6 @@ import type {
 
 export interface CrossChainERC1155BurnableInterface extends utils.Interface {
   functions: {
-    "CROSSCHAIN_ADMIN_ROLE()": FunctionFragment;
-    "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "Link(uint8,address)": FunctionFragment;
     "Unlink(uint8)": FunctionFragment;
     "approveFees(address,uint256)": FunctionFragment;
@@ -43,30 +41,18 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     "fetchHandler()": FunctionFragment;
     "fetchLink(uint8)": FunctionFragment;
     "fetchLinkSetter()": FunctionFragment;
-    "getRoleAdmin(bytes32)": FunctionFragment;
-    "grantRole(bytes32,address)": FunctionFragment;
-    "hasRole(bytes32,address)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "receiveCrossChain(address,uint256[],uint256[],bytes)": FunctionFragment;
-    "renounceRole(bytes32,address)": FunctionFragment;
-    "revokeRole(bytes32,address)": FunctionFragment;
     "routerSync(uint8,address,bytes4,bytes,bytes32)": FunctionFragment;
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
-    "setCrossChainGas(uint256)": FunctionFragment;
-    "setFeeAddress(address)": FunctionFragment;
-    "setLinker(address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
-    "transferBatchCrossChain(uint8,address,uint256[],uint256[],bytes)": FunctionFragment;
-    "transferCrossChain(uint8,address,uint256,uint256,bytes)": FunctionFragment;
     "uri(uint256)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "CROSSCHAIN_ADMIN_ROLE"
-      | "DEFAULT_ADMIN_ROLE"
       | "Link"
       | "Unlink"
       | "approveFees"
@@ -79,34 +65,16 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
       | "fetchHandler"
       | "fetchLink"
       | "fetchLinkSetter"
-      | "getRoleAdmin"
-      | "grantRole"
-      | "hasRole"
       | "isApprovedForAll"
       | "receiveCrossChain"
-      | "renounceRole"
-      | "revokeRole"
       | "routerSync"
       | "safeBatchTransferFrom"
       | "safeTransferFrom"
       | "setApprovalForAll"
-      | "setCrossChainGas"
-      | "setFeeAddress"
-      | "setLinker"
       | "supportsInterface"
-      | "transferBatchCrossChain"
-      | "transferCrossChain"
       | "uri"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "CROSSCHAIN_ADMIN_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "Link",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
@@ -164,18 +132,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getRoleAdmin",
-    values: [PromiseOrValue<BytesLike>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "grantRole",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hasRole",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
@@ -187,14 +143,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>[],
       PromiseOrValue<BytesLike>
     ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "renounceRole",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "revokeRole",
-    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "routerSync",
@@ -231,54 +179,14 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
-    functionFragment: "setCrossChainGas",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setFeeAddress",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setLinker",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferBatchCrossChain",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>[],
-      PromiseOrValue<BigNumberish>[],
-      PromiseOrValue<BytesLike>
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferCrossChain",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
   ): string;
   encodeFunctionData(
     functionFragment: "uri",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "CROSSCHAIN_ADMIN_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "Link", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "Unlink", data: BytesLike): Result;
   decodeFunctionResult(
@@ -310,12 +218,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getRoleAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
@@ -323,11 +225,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     functionFragment: "receiveCrossChain",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceRole",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "routerSync", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "safeBatchTransferFrom",
@@ -342,24 +239,7 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setCrossChainGas",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setFeeAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setLinker", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "supportsInterface",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferBatchCrossChain",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferCrossChain",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "uri", data: BytesLike): Result;
@@ -369,9 +249,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     "CrossTalkReceive(uint8,uint8,address,address,bytes4,bytes,bytes32)": EventFragment;
     "CrossTalkSend(uint8,uint8,address,address,bytes4,bytes,bytes32)": EventFragment;
     "Linkevent(uint8,address)": EventFragment;
-    "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
-    "RoleGranted(bytes32,address,address)": EventFragment;
-    "RoleRevoked(bytes32,address,address)": EventFragment;
     "TransferBatch(address,address,address,uint256[],uint256[])": EventFragment;
     "TransferSingle(address,address,address,uint256,uint256)": EventFragment;
     "URI(string,uint256)": EventFragment;
@@ -382,9 +259,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "CrossTalkReceive"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "CrossTalkSend"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Linkevent"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferBatch"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferSingle"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "URI"): EventFragment;
@@ -443,43 +317,6 @@ export interface LinkeventEventObject {
 export type LinkeventEvent = TypedEvent<[number, string], LinkeventEventObject>;
 
 export type LinkeventEventFilter = TypedEventFilter<LinkeventEvent>;
-
-export interface RoleAdminChangedEventObject {
-  role: string;
-  previousAdminRole: string;
-  newAdminRole: string;
-}
-export type RoleAdminChangedEvent = TypedEvent<
-  [string, string, string],
-  RoleAdminChangedEventObject
->;
-
-export type RoleAdminChangedEventFilter =
-  TypedEventFilter<RoleAdminChangedEvent>;
-
-export interface RoleGrantedEventObject {
-  role: string;
-  account: string;
-  sender: string;
-}
-export type RoleGrantedEvent = TypedEvent<
-  [string, string, string],
-  RoleGrantedEventObject
->;
-
-export type RoleGrantedEventFilter = TypedEventFilter<RoleGrantedEvent>;
-
-export interface RoleRevokedEventObject {
-  role: string;
-  account: string;
-  sender: string;
-}
-export type RoleRevokedEvent = TypedEvent<
-  [string, string, string],
-  RoleRevokedEventObject
->;
-
-export type RoleRevokedEventFilter = TypedEventFilter<RoleRevokedEvent>;
 
 export interface TransferBatchEventObject {
   operator: string;
@@ -555,10 +392,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    CROSSCHAIN_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
-
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
-
     Link(
       _chainID: PromiseOrValue<BigNumberish>,
       _linkedContract: PromiseOrValue<string>,
@@ -615,23 +448,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
 
     fetchLinkSetter(overrides?: CallOverrides): Promise<[string]>;
 
-    getRoleAdmin(
-      role: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    grantRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    hasRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -643,18 +459,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    renounceRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    revokeRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -691,53 +495,16 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
-
-    transferBatchCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _ids: PromiseOrValue<BigNumberish>[],
-      _amounts: PromiseOrValue<BigNumberish>[],
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     uri(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string]>;
   };
-
-  CROSSCHAIN_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
-
-  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
   Link(
     _chainID: PromiseOrValue<BigNumberish>,
@@ -795,23 +562,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
 
   fetchLinkSetter(overrides?: CallOverrides): Promise<string>;
 
-  getRoleAdmin(
-    role: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  grantRole(
-    role: PromiseOrValue<BytesLike>,
-    account: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  hasRole(
-    role: PromiseOrValue<BytesLike>,
-    account: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
   isApprovedForAll(
     account: PromiseOrValue<string>,
     operator: PromiseOrValue<string>,
@@ -823,18 +573,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
     _ids: PromiseOrValue<BigNumberish>[],
     _amounts: PromiseOrValue<BigNumberish>[],
     _data: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  renounceRole(
-    role: PromiseOrValue<BytesLike>,
-    account: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  revokeRole(
-    role: PromiseOrValue<BytesLike>,
-    account: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -871,43 +609,10 @@ export interface CrossChainERC1155Burnable extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  setCrossChainGas(
-    _gas: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setFeeAddress(
-    _feeToken: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setLinker(
-    _address: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<boolean>;
-
-  transferBatchCrossChain(
-    _chainID: PromiseOrValue<BigNumberish>,
-    _recipient: PromiseOrValue<string>,
-    _ids: PromiseOrValue<BigNumberish>[],
-    _amounts: PromiseOrValue<BigNumberish>[],
-    _data: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  transferCrossChain(
-    _chainID: PromiseOrValue<BigNumberish>,
-    _recipient: PromiseOrValue<string>,
-    _id: PromiseOrValue<BigNumberish>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _data: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   uri(
     arg0: PromiseOrValue<BigNumberish>,
@@ -915,10 +620,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
   ): Promise<string>;
 
   callStatic: {
-    CROSSCHAIN_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
-
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
-
     Link(
       _chainID: PromiseOrValue<BigNumberish>,
       _linkedContract: PromiseOrValue<string>,
@@ -975,23 +676,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
 
     fetchLinkSetter(overrides?: CallOverrides): Promise<string>;
 
-    getRoleAdmin(
-      role: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    grantRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    hasRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -1005,18 +689,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       _data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
-
-    renounceRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    revokeRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
@@ -1051,41 +723,8 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    transferBatchCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _ids: PromiseOrValue<BigNumberish>[],
-      _amounts: PromiseOrValue<BigNumberish>[],
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -1154,39 +793,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       linkedContract?: PromiseOrValue<string> | null
     ): LinkeventEventFilter;
 
-    "RoleAdminChanged(bytes32,bytes32,bytes32)"(
-      role?: PromiseOrValue<BytesLike> | null,
-      previousAdminRole?: PromiseOrValue<BytesLike> | null,
-      newAdminRole?: PromiseOrValue<BytesLike> | null
-    ): RoleAdminChangedEventFilter;
-    RoleAdminChanged(
-      role?: PromiseOrValue<BytesLike> | null,
-      previousAdminRole?: PromiseOrValue<BytesLike> | null,
-      newAdminRole?: PromiseOrValue<BytesLike> | null
-    ): RoleAdminChangedEventFilter;
-
-    "RoleGranted(bytes32,address,address)"(
-      role?: PromiseOrValue<BytesLike> | null,
-      account?: PromiseOrValue<string> | null,
-      sender?: PromiseOrValue<string> | null
-    ): RoleGrantedEventFilter;
-    RoleGranted(
-      role?: PromiseOrValue<BytesLike> | null,
-      account?: PromiseOrValue<string> | null,
-      sender?: PromiseOrValue<string> | null
-    ): RoleGrantedEventFilter;
-
-    "RoleRevoked(bytes32,address,address)"(
-      role?: PromiseOrValue<BytesLike> | null,
-      account?: PromiseOrValue<string> | null,
-      sender?: PromiseOrValue<string> | null
-    ): RoleRevokedEventFilter;
-    RoleRevoked(
-      role?: PromiseOrValue<BytesLike> | null,
-      account?: PromiseOrValue<string> | null,
-      sender?: PromiseOrValue<string> | null
-    ): RoleRevokedEventFilter;
-
     "TransferBatch(address,address,address,uint256[],uint256[])"(
       operator?: PromiseOrValue<string> | null,
       from?: PromiseOrValue<string> | null,
@@ -1234,10 +840,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
   };
 
   estimateGas: {
-    CROSSCHAIN_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
-
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
-
     Link(
       _chainID: PromiseOrValue<BigNumberish>,
       _linkedContract: PromiseOrValue<string>,
@@ -1294,23 +896,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
 
     fetchLinkSetter(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getRoleAdmin(
-      role: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    grantRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    hasRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -1322,18 +907,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    renounceRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    revokeRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1370,42 +943,9 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    transferBatchCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _ids: PromiseOrValue<BigNumberish>[],
-      _amounts: PromiseOrValue<BigNumberish>[],
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     uri(
@@ -1415,14 +955,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
   };
 
   populateTransaction: {
-    CROSSCHAIN_ADMIN_ROLE(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    DEFAULT_ADMIN_ROLE(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     Link(
       _chainID: PromiseOrValue<BigNumberish>,
       _linkedContract: PromiseOrValue<string>,
@@ -1481,23 +1013,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
 
     fetchLinkSetter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getRoleAdmin(
-      role: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    grantRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    hasRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -1509,18 +1024,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       _ids: PromiseOrValue<BigNumberish>[],
       _amounts: PromiseOrValue<BigNumberish>[],
       _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    renounceRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    revokeRole(
-      role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1557,42 +1060,9 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    transferBatchCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _ids: PromiseOrValue<BigNumberish>[],
-      _amounts: PromiseOrValue<BigNumberish>[],
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     uri(

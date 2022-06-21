@@ -300,45 +300,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_gas",
-        type: "uint256",
-      },
-    ],
-    name: "setCrossChainGas",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_feeToken",
-        type: "address",
-      },
-    ],
-    name: "setFeeAddress",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
-    ],
-    name: "setLinker",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "bytes4",
         name: "interfaceId",
         type: "bytes4",
@@ -353,84 +314,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint8",
-        name: "_chainID",
-        type: "uint8",
-      },
-      {
-        internalType: "address",
-        name: "_recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256[]",
-        name: "_ids",
-        type: "uint256[]",
-      },
-      {
-        internalType: "uint256[]",
-        name: "_amounts",
-        type: "uint256[]",
-      },
-      {
-        internalType: "bytes",
-        name: "_data",
-        type: "bytes",
-      },
-    ],
-    name: "transferBatchCrossChain",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint8",
-        name: "_chainID",
-        type: "uint8",
-      },
-      {
-        internalType: "address",
-        name: "_recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_id",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes",
-        name: "_data",
-        type: "bytes",
-      },
-    ],
-    name: "transferCrossChain",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {

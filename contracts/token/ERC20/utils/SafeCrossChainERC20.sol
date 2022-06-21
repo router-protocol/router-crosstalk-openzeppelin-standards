@@ -34,15 +34,6 @@ library SafeCrossChainERC20 {
         _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
     }
 
-    function safeTransferCrossChain(
-        ICrossChainERC20 token,
-        uint8 chainID,
-        address to,
-        uint256 amount
-    ) internal {
-        _callOptionalReturn(token, abi.encodeWithSelector(token.transferCrossChain.selector, chainID, to, amount));
-    }
-
     /**
      * @dev Deprecated. This function has issues similar to the ones found in
      * {IERC20-approve}, and its usage is discouraged.

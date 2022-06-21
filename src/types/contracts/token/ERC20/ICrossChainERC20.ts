@@ -33,12 +33,8 @@ export interface ICrossChainERC20Interface extends utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "fetchCrossChainGas()": FunctionFragment;
-    "setCrossChainGas(uint256)": FunctionFragment;
-    "setFeeAddress(address)": FunctionFragment;
-    "setLinker(address)": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
-    "transferCrossChain(uint8,address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
@@ -48,12 +44,8 @@ export interface ICrossChainERC20Interface extends utils.Interface {
       | "approve"
       | "balanceOf"
       | "fetchCrossChainGas"
-      | "setCrossChainGas"
-      | "setFeeAddress"
-      | "setLinker"
       | "totalSupply"
       | "transfer"
-      | "transferCrossChain"
       | "transferFrom"
   ): FunctionFragment;
 
@@ -74,32 +66,12 @@ export interface ICrossChainERC20Interface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "setCrossChainGas",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setFeeAddress",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setLinker",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "transfer",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferCrossChain",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
   ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
@@ -118,23 +90,10 @@ export interface ICrossChainERC20Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setCrossChainGas",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setFeeAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setLinker", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "transferCrossChain",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
     data: BytesLike
@@ -219,33 +178,11 @@ export interface ICrossChainERC20 extends BaseContract {
 
     fetchCrossChainGas(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transfer(
       to: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -276,33 +213,11 @@ export interface ICrossChainERC20 extends BaseContract {
 
   fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
 
-  setCrossChainGas(
-    _gas: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setFeeAddress(
-    _feeToken: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setLinker(
-    _address: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   transfer(
     to: PromiseOrValue<string>,
     amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  transferCrossChain(
-    _chainID: PromiseOrValue<BigNumberish>,
-    _recipient: PromiseOrValue<string>,
-    _amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -333,33 +248,11 @@ export interface ICrossChainERC20 extends BaseContract {
 
     fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transfer(
       to: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -415,33 +308,11 @@ export interface ICrossChainERC20 extends BaseContract {
 
     fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transfer(
       to: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -475,33 +346,11 @@ export interface ICrossChainERC20 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transfer(
       to: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

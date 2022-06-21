@@ -37,12 +37,7 @@ export interface ICrossChainERC1155MetadataURIInterface
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
-    "setCrossChainGas(uint256)": FunctionFragment;
-    "setFeeAddress(address)": FunctionFragment;
-    "setLinker(address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
-    "transferBatchCrossChain(uint8,address,uint256[],uint256[],bytes)": FunctionFragment;
-    "transferCrossChain(uint8,address,uint256,uint256,bytes)": FunctionFragment;
     "uri(uint256)": FunctionFragment;
   };
 
@@ -55,12 +50,7 @@ export interface ICrossChainERC1155MetadataURIInterface
       | "safeBatchTransferFrom"
       | "safeTransferFrom"
       | "setApprovalForAll"
-      | "setCrossChainGas"
-      | "setFeeAddress"
-      | "setLinker"
       | "supportsInterface"
-      | "transferBatchCrossChain"
-      | "transferCrossChain"
       | "uri"
   ): FunctionFragment;
 
@@ -105,40 +95,8 @@ export interface ICrossChainERC1155MetadataURIInterface
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
-    functionFragment: "setCrossChainGas",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setFeeAddress",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setLinker",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferBatchCrossChain",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>[],
-      PromiseOrValue<BigNumberish>[],
-      PromiseOrValue<BytesLike>
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferCrossChain",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
   ): string;
   encodeFunctionData(
     functionFragment: "uri",
@@ -171,24 +129,7 @@ export interface ICrossChainERC1155MetadataURIInterface
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setCrossChainGas",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setFeeAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setLinker", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "supportsInterface",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferBatchCrossChain",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferCrossChain",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "uri", data: BytesLike): Result;
@@ -325,43 +266,10 @@ export interface ICrossChainERC1155MetadataURI extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
-
-    transferBatchCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _ids: PromiseOrValue<BigNumberish>[],
-      _amounts: PromiseOrValue<BigNumberish>[],
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     uri(
       id: PromiseOrValue<BigNumberish>,
@@ -413,43 +321,10 @@ export interface ICrossChainERC1155MetadataURI extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  setCrossChainGas(
-    _gas: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setFeeAddress(
-    _feeToken: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setLinker(
-    _address: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<boolean>;
-
-  transferBatchCrossChain(
-    _chainID: PromiseOrValue<BigNumberish>,
-    _recipient: PromiseOrValue<string>,
-    _ids: PromiseOrValue<BigNumberish>[],
-    _amounts: PromiseOrValue<BigNumberish>[],
-    _data: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  transferCrossChain(
-    _chainID: PromiseOrValue<BigNumberish>,
-    _recipient: PromiseOrValue<string>,
-    _id: PromiseOrValue<BigNumberish>,
-    _amount: PromiseOrValue<BigNumberish>,
-    _data: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   uri(
     id: PromiseOrValue<BigNumberish>,
@@ -501,41 +376,8 @@ export interface ICrossChainERC1155MetadataURI extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    transferBatchCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _ids: PromiseOrValue<BigNumberish>[],
-      _amounts: PromiseOrValue<BigNumberish>[],
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -639,42 +481,9 @@ export interface ICrossChainERC1155MetadataURI extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    transferBatchCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _ids: PromiseOrValue<BigNumberish>[],
-      _amounts: PromiseOrValue<BigNumberish>[],
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     uri(
@@ -730,42 +539,9 @@ export interface ICrossChainERC1155MetadataURI extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    transferBatchCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _ids: PromiseOrValue<BigNumberish>[],
-      _amounts: PromiseOrValue<BigNumberish>[],
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    transferCrossChain(
-      _chainID: PromiseOrValue<BigNumberish>,
-      _recipient: PromiseOrValue<string>,
-      _id: PromiseOrValue<BigNumberish>,
-      _amount: PromiseOrValue<BigNumberish>,
-      _data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     uri(

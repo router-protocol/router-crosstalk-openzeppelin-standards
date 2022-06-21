@@ -39,15 +39,10 @@ export interface ICrossChainERC777Interface extends utils.Interface {
     "name()": FunctionFragment;
     "operatorBurn(address,uint256,bytes,bytes)": FunctionFragment;
     "operatorSend(address,address,uint256,bytes,bytes)": FunctionFragment;
-    "operatorTransferCrossChain(uint8,address,uint256,bytes,bytes)": FunctionFragment;
     "revokeOperator(address)": FunctionFragment;
     "send(address,uint256,bytes)": FunctionFragment;
-    "setCrossChainGas(uint256)": FunctionFragment;
-    "setFeeAddress(address)": FunctionFragment;
-    "setLinker(address)": FunctionFragment;
     "symbol()": FunctionFragment;
     "totalSupply()": FunctionFragment;
-    "transferCrossChain(uint8,address,uint256,bytes,bytes)": FunctionFragment;
   };
 
   getFunction(
@@ -62,15 +57,10 @@ export interface ICrossChainERC777Interface extends utils.Interface {
       | "name"
       | "operatorBurn"
       | "operatorSend"
-      | "operatorTransferCrossChain"
       | "revokeOperator"
       | "send"
-      | "setCrossChainGas"
-      | "setFeeAddress"
-      | "setLinker"
       | "symbol"
       | "totalSupply"
-      | "transferCrossChain"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -122,16 +112,6 @@ export interface ICrossChainERC777Interface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "operatorTransferCrossChain",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
-    ]
-  ): string;
-  encodeFunctionData(
     functionFragment: "revokeOperator",
     values: [PromiseOrValue<string>]
   ): string;
@@ -143,32 +123,10 @@ export interface ICrossChainERC777Interface extends utils.Interface {
       PromiseOrValue<BytesLike>
     ]
   ): string;
-  encodeFunctionData(
-    functionFragment: "setCrossChainGas",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setFeeAddress",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setLinker",
-    values: [PromiseOrValue<string>]
-  ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferCrossChain",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
-    ]
   ): string;
 
   decodeFunctionResult(
@@ -203,30 +161,13 @@ export interface ICrossChainERC777Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "operatorTransferCrossChain",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "revokeOperator",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "send", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setCrossChainGas",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setFeeAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setLinker", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferCrossChain",
     data: BytesLike
   ): Result;
 
@@ -385,15 +326,6 @@ export interface ICrossChainERC777 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    operatorTransferCrossChain(
-      chainID: PromiseOrValue<BigNumberish>,
-      account: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      userData: PromiseOrValue<BytesLike>,
-      operatorData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     revokeOperator(
       operator: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -406,33 +338,9 @@ export interface ICrossChainERC777 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     symbol(overrides?: CallOverrides): Promise<[string]>;
 
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    transferCrossChain(
-      chainID: PromiseOrValue<BigNumberish>,
-      recipient: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      userData: PromiseOrValue<BytesLike>,
-      operatorData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
   };
 
   authorizeOperator(
@@ -482,15 +390,6 @@ export interface ICrossChainERC777 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  operatorTransferCrossChain(
-    chainID: PromiseOrValue<BigNumberish>,
-    account: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    userData: PromiseOrValue<BytesLike>,
-    operatorData: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   revokeOperator(
     operator: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -503,33 +402,9 @@ export interface ICrossChainERC777 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  setCrossChainGas(
-    _gas: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setFeeAddress(
-    _feeToken: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setLinker(
-    _address: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   symbol(overrides?: CallOverrides): Promise<string>;
 
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-  transferCrossChain(
-    chainID: PromiseOrValue<BigNumberish>,
-    recipient: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    userData: PromiseOrValue<BytesLike>,
-    operatorData: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   callStatic: {
     authorizeOperator(
@@ -579,15 +454,6 @@ export interface ICrossChainERC777 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    operatorTransferCrossChain(
-      chainID: PromiseOrValue<BigNumberish>,
-      account: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      userData: PromiseOrValue<BytesLike>,
-      operatorData: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
     revokeOperator(
       operator: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -600,33 +466,9 @@ export interface ICrossChainERC777 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     symbol(overrides?: CallOverrides): Promise<string>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    transferCrossChain(
-      chainID: PromiseOrValue<BigNumberish>,
-      recipient: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      userData: PromiseOrValue<BytesLike>,
-      operatorData: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
   };
 
   filters: {
@@ -744,15 +586,6 @@ export interface ICrossChainERC777 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    operatorTransferCrossChain(
-      chainID: PromiseOrValue<BigNumberish>,
-      account: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      userData: PromiseOrValue<BytesLike>,
-      operatorData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     revokeOperator(
       operator: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -765,33 +598,9 @@ export interface ICrossChainERC777 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    transferCrossChain(
-      chainID: PromiseOrValue<BigNumberish>,
-      recipient: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      userData: PromiseOrValue<BytesLike>,
-      operatorData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -844,15 +653,6 @@ export interface ICrossChainERC777 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    operatorTransferCrossChain(
-      chainID: PromiseOrValue<BigNumberish>,
-      account: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      userData: PromiseOrValue<BytesLike>,
-      operatorData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     revokeOperator(
       operator: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -865,32 +665,8 @@ export interface ICrossChainERC777 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    setCrossChainGas(
-      _gas: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setFeeAddress(
-      _feeToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setLinker(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    transferCrossChain(
-      chainID: PromiseOrValue<BigNumberish>,
-      recipient: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      userData: PromiseOrValue<BytesLike>,
-      operatorData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
   };
 }

@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 
 import "./ICrossChainERC777.sol";
 import "@openzeppelin/contracts/token/ERC777/ERC777.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@routerprotocol/router-crosstalk/contracts/RouterCrossTalk.sol";
 
 /**
@@ -13,10 +12,8 @@ import "@routerprotocol/router-crosstalk/contracts/RouterCrossTalk.sol";
  * TIP: For a detailed overview see our guide
  * https://dev.routerprotocol.com/crosstalk-library/overview
  */
-contract CrossChainERC777 is ERC777, ICrossChainERC777, AccessControl, RouterCrossTalk {
+contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
     uint256 private _crossChainGas;
-
-    bytes32 public constant CROSSCHAIN_ADMIN_ROLE = keccak256("CROSSCHAIN_ADMIN_ROLE");
 
     /**
      * @dev `defaultOperators` may be an empty array.
@@ -26,20 +23,12 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, AccessControl, RouterCro
         string memory symbol_,
         address[] memory defaultOperators_,
         address genericHandler_
-    ) ERC777(name_, symbol_, defaultOperators_) RouterCrossTalk(genericHandler_) AccessControl() {
-        _setupRole(CROSSCHAIN_ADMIN_ROLE, msg.sender);
-    }
+    ) ERC777(name_, symbol_, defaultOperators_) RouterCrossTalk(genericHandler_) {}
 
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(ERC165, IERC165, AccessControl)
-        returns (bool)
-    {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
         return interfaceId == type(ICrossChainERC777).interfaceId || super.supportsInterface(interfaceId);
     }
 
@@ -59,29 +48,11 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, AccessControl, RouterCro
         return balance;
     }
 
-    /* CROSSTALK ADMINISTRATIVE FUNCTIONS */
-
     /**
-     * @notice setLinker Used to set linker address, this can only be set by CrossChain Admin or Admins
-     * @param _address Address of linker
-     */
-    function setLinker(address _address) external virtual override onlyRole(CROSSCHAIN_ADMIN_ROLE) {
-        setLink(_address);
-    }
-
-    /**
-     * @notice setFeeAddress Used to set fee token address, this can only be set by CrossChain Admin or Admins
-     * @param _feeToken Address of fee token
-     */
-    function setFeeAddress(address _feeToken) external virtual override onlyRole(CROSSCHAIN_ADMIN_ROLE) {
-        setFeeToken(_feeToken);
-    }
-
-    /**
-     * @notice setCrossChainGas Used to set CrossChainGas, this can only be set by CrossChain Admin or Admins
+     * @notice _setCrossChainGas Used to set CrossChainGas, this can only be set by CrossChain Admin or Admins
      * @param _gas Amount of gas that is to be set
      */
-    function setCrossChainGas(uint256 _gas) external virtual override onlyRole(CROSSCHAIN_ADMIN_ROLE) {
+    function _setCrossChainGas(uint256 _gas) internal {
         _crossChainGas = _gas;
     }
 
@@ -89,7 +60,7 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, AccessControl, RouterCro
      * @notice fetchCrossChainGas Used to fetch CrossChainGas
      * @return crossChainGas that is set
      */
-    function fetchCrossChainGas() public view override returns (uint256) {
+    function fetchCrossChainGas() external view override returns (uint256) {
         return _crossChainGas;
     }
 
@@ -103,13 +74,13 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, AccessControl, RouterCro
      * @dev See {IERC777-burn} and {IERC777-_mint}
      * @return bool returns true when completed
      */
-    function transferCrossChain(
+    function _transferCrossChain(
         uint8 chainID,
         address recipient,
         uint256 amount,
         bytes memory userData,
         bytes memory operatorData
-    ) external returns (bool) {
+    ) internal returns (bool) {
         burn(amount, userData);
         _sendCrossChain(chainID, recipient, amount, userData, operatorData);
         return true;
@@ -130,13 +101,13 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, AccessControl, RouterCro
      * @dev See {IERC777-operatorBurn} and {IERC777-_mint}
      * @return bool returns true when completed
      */
-    function operatorTransferCrossChain(
+    function _operatorTransferCrossChain(
         uint8 chainID,
         address account,
         uint256 amount,
         bytes memory userData,
         bytes memory operatorData
-    ) external returns (bool) {
+    ) internal returns (bool) {
         operatorBurn(account, amount, userData, operatorData);
         _sendCrossChain(chainID, account, amount, userData, operatorData);
         return true;
