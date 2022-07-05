@@ -13,4 +13,10 @@ interface ICrossChainERC20 is IERC20 {
      * @return crossChainGas that is set
      */
     function fetchCrossChainGas() external view returns (uint256);
+
+    function transferCrossChain(
+        uint8 _chainID,
+        address _recipient,
+        uint256 _amount
+    ) external returns (bool);
 }

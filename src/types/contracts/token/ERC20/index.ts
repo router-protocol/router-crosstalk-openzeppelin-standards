@@ -3,5 +3,7 @@
 /* eslint-disable */
 import type * as extensions from "./extensions";
 export type { extensions };
+import type * as utils from "./utils";
+export type { utils };
 export type { CrossChainERC20 } from "./CrossChainERC20";
 export type { ICrossChainERC20 } from "./ICrossChainERC20";

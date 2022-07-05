@@ -21,6 +21,14 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IAccessControl__factory>;
     getContractFactory(
+      name: "Governor",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Governor__factory>;
+    getContractFactory(
+      name: "IGovernor",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IGovernor__factory>;
+    getContractFactory(
       name: "IERC3156FlashBorrower",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC3156FlashBorrower__factory>;
@@ -61,6 +69,22 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
+      name: "ERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721__factory>;
+    getContractFactory(
+      name: "IERC721Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Metadata__factory>;
+    getContractFactory(
+      name: "IERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721__factory>;
+    getContractFactory(
+      name: "IERC721Receiver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Receiver__factory>;
+    getContractFactory(
       name: "ERC777",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC777__factory>;
@@ -89,6 +113,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC1820Registry__factory>;
     getContractFactory(
+      name: "DoubleEndedQueue",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DoubleEndedQueue__factory>;
+    getContractFactory(
       name: "IGenericHandler",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IGenericHandler__factory>;
@@ -100,6 +128,14 @@ declare module "hardhat/types/runtime" {
       name: "RouterCrossTalk",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.RouterCrossTalk__factory>;
+    getContractFactory(
+      name: "CrossChainGovernor",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainGovernor__factory>;
+    getContractFactory(
+      name: "ICrossChainGovernor",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ICrossChainGovernor__factory>;
     getContractFactory(
       name: "Greeter",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -161,6 +197,26 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ICrossChainERC20__factory>;
     getContractFactory(
+      name: "CrossChainTokenTimelock",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainTokenTimelock__factory>;
+    getContractFactory(
+      name: "CrossChainERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainERC721__factory>;
+    getContractFactory(
+      name: "CrossChainERC721Burnable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainERC721Burnable__factory>;
+    getContractFactory(
+      name: "CrossChainERC721Pausable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CrossChainERC721Pausable__factory>;
+    getContractFactory(
+      name: "ICrossChainERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ICrossChainERC721__factory>;
+    getContractFactory(
       name: "CrossChainERC777",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CrossChainERC777__factory>;
@@ -179,6 +235,16 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.IAccessControl>;
+    getContractAt(
+      name: "Governor",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Governor>;
+    getContractAt(
+      name: "IGovernor",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IGovernor>;
     getContractAt(
       name: "IERC3156FlashBorrower",
       address: string,
@@ -230,6 +296,26 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
+      name: "ERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721>;
+    getContractAt(
+      name: "IERC721Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Metadata>;
+    getContractAt(
+      name: "IERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721>;
+    getContractAt(
+      name: "IERC721Receiver",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Receiver>;
+    getContractAt(
       name: "ERC777",
       address: string,
       signer?: ethers.Signer
@@ -265,6 +351,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC1820Registry>;
     getContractAt(
+      name: "DoubleEndedQueue",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.DoubleEndedQueue>;
+    getContractAt(
       name: "IGenericHandler",
       address: string,
       signer?: ethers.Signer
@@ -279,6 +370,16 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.RouterCrossTalk>;
+    getContractAt(
+      name: "CrossChainGovernor",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainGovernor>;
+    getContractAt(
+      name: "ICrossChainGovernor",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ICrossChainGovernor>;
     getContractAt(
       name: "Greeter",
       address: string,
@@ -354,6 +455,31 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ICrossChainERC20>;
+    getContractAt(
+      name: "CrossChainTokenTimelock",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainTokenTimelock>;
+    getContractAt(
+      name: "CrossChainERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainERC721>;
+    getContractAt(
+      name: "CrossChainERC721Burnable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainERC721Burnable>;
+    getContractAt(
+      name: "CrossChainERC721Pausable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CrossChainERC721Pausable>;
+    getContractAt(
+      name: "ICrossChainERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ICrossChainERC721>;
     getContractAt(
       name: "CrossChainERC777",
       address: string,

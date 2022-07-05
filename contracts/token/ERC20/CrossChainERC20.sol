@@ -54,6 +54,16 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, RouterCrossTalk {
         return _crossChainGas;
     }
 
+    function transferCrossChain(
+        uint8 _chainID,
+        address _recipient,
+        uint256 _amount
+    ) public virtual override returns (bool) {
+        _burn(msg.sender, _amount);
+        _sendCrossChain(_chainID, _recipient, _amount);
+        return true;
+    }
+
     /**
      * @notice _sendCrossChain This is an internal function to generate a cross chain communication request
      */
@@ -62,7 +72,6 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, RouterCrossTalk {
         address _recipient,
         uint256 _amount
     ) internal returns (bool) {
-        _burn(msg.sender, _amount);
         bytes4 _selector = bytes4(keccak256("receiveCrossChain(address,uint256)"));
         bytes memory _data = abi.encode(_recipient, _amount);
         bool success = routerSend(_chainID, _selector, _data, _crossChainGas);
