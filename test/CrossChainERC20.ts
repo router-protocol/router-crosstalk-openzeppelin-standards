@@ -1,12 +1,11 @@
 import { expect } from "chai";
 import hre from "hardhat";
-import { web3 } from "hardhat";
 
 describe("Testing Bridge Contract", function () {
   beforeEach(async function () {
     this.hre = hre;
     this.accounts = await this.hre.ethers.getSigners();
-    this.tester1 = this.accounts[1].address;
+    this.tester1 = this.accounts[0].address;
     this.tester2 = this.accounts[2].address;
 
     this.bridge = await this.hre.ethers.getContractFactory("GenericHandlerTest");
@@ -21,9 +20,8 @@ describe("Testing Bridge Contract", function () {
     );
     await this.CrossChainERC20Instance.deployed();
 
-    const amount = web3.utils.toWei("3000");
-    await this.CrossChainERC20Instance.faucet(this.tester1, amount);
-    await this.CrossChainERC20Instance.faucet(this.tester2, amount);
+    await this.CrossChainERC20Instance.faucet(this.tester1, 3000);
+    await this.CrossChainERC20Instance.faucet(this.tester2, 3000);
 
     this.network = await this.hre.ethers.provider.getNetwork();
 
@@ -34,11 +32,9 @@ describe("Testing Bridge Contract", function () {
     );
   });
 
-  it("Router Crosstalk - Non Upgradeable Testing - Check Getter function sets value on to GetterSetter Contract", async function () {
-    await this.CrossChainERC20Instance.setCrossChainGas(10000000);
-    await this.CrossChainERC20Instance.sendCrossChain(111, this.tester2, web3.utils.toWei("1000"), {
-      from: this.tester1,
-    });
+  it("Router Crosstalk - Checking SendCrossChain Function", async function () {
+    await this.CrossChainERC20Instance.setCrossChainGas(100000);
+    await this.CrossChainERC20Instance.sendCrossChain(111, this.tester2, 1000);
     let Logs = await this.CrossChainERC20Instance.queryFilter("CrossTalkSend");
     await this.bridgeInstance.execute(
       this.CrossChainERC20Instance.address,
@@ -48,7 +44,10 @@ describe("Testing Bridge Contract", function () {
       Logs[0].args._data,
       Logs[0].args._hash,
     );
-    let balance = await this.CrossChainERC20Instance.balanceOf(this.tester2);
-    expect(balance.toString()).to.be.equal(web3.utils.toWei("4000"));
+    let balanceTester1 = await this.CrossChainERC20Instance.balanceOf(this.tester1);
+    let balanceTester2 = await this.CrossChainERC20Instance.balanceOf(this.tester2);
+    console.log("BALANCE OF TESTER 1 " + balanceTester1.toString());
+    console.log("BALANCE OF TESTER 2 " + balanceTester2.toString());
+    expect(balanceTester2.toString()).to.be.equal("4000");
   });
 });
