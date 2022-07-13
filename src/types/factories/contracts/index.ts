@@ -2,5 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as governance from "./governance";
+export * as test from "./test";
 export * as token from "./token";
 export { Greeter__factory } from "./Greeter__factory";

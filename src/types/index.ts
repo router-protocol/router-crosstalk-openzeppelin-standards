@@ -72,6 +72,10 @@ export type { ICrossChainGovernor } from "./contracts/governance/ICrossChainGove
 export { ICrossChainGovernor__factory } from "./factories/contracts/governance/ICrossChainGovernor__factory";
 export type { Greeter } from "./contracts/Greeter";
 export { Greeter__factory } from "./factories/contracts/Greeter__factory";
+export type { MyCrossChainERC20 } from "./contracts/test/examples/MyCrossChainERC20";
+export { MyCrossChainERC20__factory } from "./factories/contracts/test/examples/MyCrossChainERC20__factory";
+export type { GenericHandlerTest } from "./contracts/test/GenericHandlerTest";
+export { GenericHandlerTest__factory } from "./factories/contracts/test/GenericHandlerTest__factory";
 export type { CrossChainERC1155 } from "./contracts/token/ERC1155/CrossChainERC1155";
 export { CrossChainERC1155__factory } from "./factories/contracts/token/ERC1155/CrossChainERC1155__factory";
 export type { CrossChainERC1155Burnable } from "./contracts/token/ERC1155/extensions/CrossChainERC1155Burnable";

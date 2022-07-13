@@ -141,6 +141,14 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Greeter__factory>;
     getContractFactory(
+      name: "MyCrossChainERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MyCrossChainERC20__factory>;
+    getContractFactory(
+      name: "GenericHandlerTest",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GenericHandlerTest__factory>;
+    getContractFactory(
       name: "CrossChainERC1155",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CrossChainERC1155__factory>;
@@ -385,6 +393,16 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Greeter>;
+    getContractAt(
+      name: "MyCrossChainERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MyCrossChainERC20>;
+    getContractAt(
+      name: "GenericHandlerTest",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.GenericHandlerTest>;
     getContractAt(
       name: "CrossChainERC1155",
       address: string,
