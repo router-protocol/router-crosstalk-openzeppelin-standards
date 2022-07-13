@@ -79,7 +79,8 @@ contract CrossChainERC721 is ERC721, ICrossChainERC721, RouterCrossTalk {
         override
         returns (bool, bytes memory)
     {
-        (bool success, bytes memory returnData) = address(this).call(abi.encodeWithSelector(_selector, _data));
+        (address _r, uint256 _id) = abi.decode(_data, (address, uint256));
+        (bool success, bytes memory returnData) = address(this).call(abi.encodeWithSelector(_selector, _r, _id));
         return (success, returnData);
     }
 

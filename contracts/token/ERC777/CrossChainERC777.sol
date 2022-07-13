@@ -95,7 +95,8 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
      * If a send hook is registered for `account`, the corresponding function
      * will be called with `userData` and `operatorData`. See {IERC777Sender}.
      * @param chainID Destination ChainID
-     * @param account Address of the tokenHolder
+     * @param owner Address of the tokenHolder
+     * @param recipient Address of the recipient on destination chainid
      * @param amount Number of tokens to be burnt on current chain and minted on destination chain
      *
      * @dev See {IERC777-operatorBurn} and {IERC777-_mint}
@@ -103,13 +104,14 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
      */
     function _operatorTransferCrossChain(
         uint8 chainID,
-        address account,
+        address owner,
+        address recipient,
         uint256 amount,
         bytes memory userData,
         bytes memory operatorData
     ) internal returns (bool) {
-        operatorBurn(account, amount, userData, operatorData);
-        _sendCrossChain(chainID, account, amount, userData, operatorData);
+        operatorBurn(owner, amount, userData, operatorData);
+        _sendCrossChain(chainID, recipient, amount, userData, operatorData);
         return true;
     }
 
@@ -140,7 +142,13 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
         override
         returns (bool, bytes memory)
     {
-        (bool success, bytes memory returnData) = address(this).call(abi.encodeWithSelector(_selector, _data));
+        (address _r, uint256 _a, bytes memory _ud, bytes memory _od) = abi.decode(
+            _data,
+            (address, uint256, bytes, bytes)
+        );
+        (bool success, bytes memory returnData) = address(this).call(
+            abi.encodeWithSelector(_selector, _r, _a, _ud, _od)
+        );
         return (success, returnData);
     }
 

@@ -156,8 +156,28 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
         override
         returns (bool, bytes memory)
     {
-        (bool success, bytes memory returnData) = address(this).call(abi.encodeWithSelector(_selector, _data));
-        return (success, returnData);
+        if (bytes4(keccak256("receiveVoteWithReasonCrossChain(uint256,address,uint8,string)")) == _selector) {
+            (uint256 _id, address _v, uint8 _s, string memory _r) = abi.decode(
+                _data,
+                (uint256, address, uint8, string)
+            );
+            (bool success, bytes memory returnData) = address(this).call(
+                abi.encodeWithSelector(_selector, _id, _v, _s, _r)
+            );
+            return (success, returnData);
+        } else if (
+            bytes4(keccak256("receiveVoteWithReasonAndParamsCrossChain(uint256,address,uint8,string,bytes)")) ==
+            _selector
+        ) {
+            (uint256 _id, address _v, uint8 _s, string memory _r, bytes memory _p) = abi.decode(
+                _data,
+                (uint256, address, uint8, string, bytes)
+            );
+            (bool success, bytes memory returnData) = address(this).call(
+                abi.encodeWithSelector(_selector, _id, _v, _s, _r, _p)
+            );
+            return (success, returnData);
+        }
     }
 
     /**
