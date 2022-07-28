@@ -6440,7 +6440,13 @@
     "nan" "^2.14.0"
     "safe-buffer" "^5.2.0"
 
-"keccak@^3.0.0", "keccak@3.0.1":
+"keccak@^3.0.0":
+  "version" "3.0.1"
+  dependencies:
+    "node-addon-api" "^2.0.0"
+    "node-gyp-build" "^4.2.0"
+
+"keccak@3.0.1":
   "version" "3.0.1"
   dependencies:
     "node-addon-api" "^2.0.0"

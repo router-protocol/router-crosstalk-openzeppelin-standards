@@ -83,7 +83,7 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, RouterCrossTalk {
             (address, uint256[], uint256[], bytes)
         );
         (bool success, bytes memory returnData) = address(this).call(
-            abi.encodeWithSelector(_selector, _recipient, _ids, _amounts, data);
+            abi.encodeWithSelector(_selector, _recipient, _ids, _amounts, data)
         );
         return (success, returnData);
     }

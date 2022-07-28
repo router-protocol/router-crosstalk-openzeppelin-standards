@@ -141,6 +141,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Greeter__factory>;
     getContractFactory(
+      name: "MyCrossChainERC1155",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MyCrossChainERC1155__factory>;
+    getContractFactory(
       name: "MyCrossChainERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MyCrossChainERC20__factory>;
@@ -393,6 +397,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Greeter>;
+    getContractAt(
+      name: "MyCrossChainERC1155",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MyCrossChainERC1155>;
     getContractAt(
       name: "MyCrossChainERC20",
       address: string,
