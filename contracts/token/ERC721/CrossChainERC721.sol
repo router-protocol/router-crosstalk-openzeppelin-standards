@@ -80,12 +80,14 @@ contract CrossChainERC721 is ERC721, ICrossChainERC721, RouterCrossTalk {
         returns (bool, bytes memory)
     {
         (address _recipient, uint256 _tokenId) = abi.decode(_data, (address, uint256));
-        (bool success, bytes memory returnData) = address(this).call(abi.encodeWithSelector(_selector, _recipient, _tokenId));
+        (bool success, bytes memory returnData) = address(this).call(
+            abi.encodeWithSelector(_selector, _recipient, _tokenId)
+        );
         return (success, returnData);
     }
 
     /**
-     * @notice receiveCrossChain Creates `_amounts` tokens of token type `_ids` to `_recipient` on the destination chain
+     * @notice receiveCrossChain Mints token `_tokenId` to `_recipient` on the destination chain
      *
      * NOTE: It can only be called by current contract.
      *

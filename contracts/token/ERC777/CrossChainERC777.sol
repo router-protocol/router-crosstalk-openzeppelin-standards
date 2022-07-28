@@ -65,7 +65,7 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
     }
 
     /**
-     * @notice transferCrossChain Destroys `_amount` tokens from caller's account on the current chain
+     * @notice transferCrossChain Destroys `amount` tokens from caller's account on the current chain
      * and calls an internal function to generate a crosschain communication request for transfer to destination chain `_chainID`
      * @param chainID Destination ChainID
      * @param recipient Address of the recipient
@@ -87,12 +87,12 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
     }
 
     /**
-     * @notice operatorTransferCrossChain Destroys `_amount` tokens from `account` on the current chain
+     * @notice operatorTransferCrossChain Destroys `amount` tokens from `owner` on the current chain
      * and calls an internal function to generate a crosschain communication request for transfer to destination chain `_chainID`
      *
-     * The caller must be an operator of `account`.
+     * The caller must be an operator of `owner`.
      *
-     * If a send hook is registered for `account`, the corresponding function
+     * If a send hook is registered for `owner`, the corresponding function
      * will be called with `userData` and `operatorData`. See {IERC777Sender}.
      * @param chainID Destination ChainID
      * @param owner Address of the tokenHolder

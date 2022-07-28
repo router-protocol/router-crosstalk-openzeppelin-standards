@@ -90,12 +90,14 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, RouterCrossTalk {
         returns (bool, bytes memory)
     {
         (address _recipient, uint256 _amount) = abi.decode(_data, (address, uint256));
-        (bool success, bytes memory returnData) = address(this).call(abi.encodeWithSelector(_selector, _recipient, _amount));
+        (bool success, bytes memory returnData) = address(this).call(
+            abi.encodeWithSelector(_selector, _recipient, _amount)
+        );
         return (success, returnData);
     }
 
     /**
-     * @notice receiveCrossChain Creates `_amount` tokens to `_to` on the destination chain
+     * @notice receiveCrossChain Creates `_amount` tokens to `_recipient` on the destination chain
      *
      * NOTE: It can only be called by current contract.
      *
