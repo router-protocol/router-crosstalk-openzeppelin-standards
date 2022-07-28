@@ -48,11 +48,4 @@ contract MyCrossChainERC20 is CrossChainERC20, AccessControl {
         _mint(recepient, amount);
     }
 
-    function sendCrossChain(
-        uint8 _chainID,
-        address _recipient,
-        uint256 _amount
-    ) external {
-        transferCrossChain(_chainID, _recipient, _amount);
-    }
 }

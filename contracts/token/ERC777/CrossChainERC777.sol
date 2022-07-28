@@ -142,12 +142,12 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
         override
         returns (bool, bytes memory)
     {
-        (address _r, uint256 _a, bytes memory _ud, bytes memory _od) = abi.decode(
+        (address _recipient, uint256 _amount, bytes memory _userData, bytes memory _operatorData) = abi.decode(
             _data,
             (address, uint256, bytes, bytes)
         );
         (bool success, bytes memory returnData) = address(this).call(
-            abi.encodeWithSelector(_selector, _r, _a, _ud, _od)
+            abi.encodeWithSelector(_selector, _recipient, _amount, _userData, _operatorData)
         );
         return (success, returnData);
     }

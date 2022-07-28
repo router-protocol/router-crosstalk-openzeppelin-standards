@@ -89,8 +89,8 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, RouterCrossTalk {
         override
         returns (bool, bytes memory)
     {
-        (address _r, uint256 _v) = abi.decode(_data, (address, uint256));
-        (bool success, bytes memory returnData) = address(this).call(abi.encodeWithSelector(_selector, _r, _v));
+        (address _recipient, uint256 _amount) = abi.decode(_data, (address, uint256));
+        (bool success, bytes memory returnData) = address(this).call(abi.encodeWithSelector(_selector, _recipient, _amount));
         return (success, returnData);
     }
 

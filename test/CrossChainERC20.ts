@@ -34,7 +34,7 @@ describe("Testing Bridge Contract", function () {
 
   it("Router Crosstalk - Checking SendCrossChain Function", async function () {
     await this.CrossChainERC20Instance.setCrossChainGas(100000);
-    await this.CrossChainERC20Instance.sendCrossChain(111, this.tester2, 1000);
+    await this.CrossChainERC20Instance.transferCrossChain(111, this.tester2, 1000);
     let Logs = await this.CrossChainERC20Instance.queryFilter("CrossTalkSend");
     await this.bridgeInstance.execute(
       this.CrossChainERC20Instance.address,
