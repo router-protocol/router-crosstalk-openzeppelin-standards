@@ -56,30 +56,6 @@ const _abi = [
         name: "sourceAddress",
         type: "address",
       },
-      {
-        indexed: false,
-        internalType: "address",
-        name: "destinationAddress",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "bytes4",
-        name: "_selector",
-        type: "bytes4",
-      },
-      {
-        indexed: false,
-        internalType: "bytes",
-        name: "_data",
-        type: "bytes",
-      },
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "_hash",
-        type: "bytes32",
-      },
     ],
     name: "CrossTalkReceive",
     type: "event",
@@ -279,24 +255,6 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_feeToken",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_value",
-        type: "uint256",
-      },
-    ],
-    name: "approveFees",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
         name: "account",
         type: "address",
       },
@@ -382,7 +340,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "fetchCrossChainGas",
+    name: "fetchCrossChainGasLimit",
     outputs: [
       {
         internalType: "uint256",
@@ -394,8 +352,39 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "hash",
+        type: "bytes32",
+      },
+    ],
+    name: "fetchExecutes",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint8",
+            name: "chainID",
+            type: "uint8",
+          },
+          {
+            internalType: "uint64",
+            name: "nonce",
+            type: "uint64",
+          },
+        ],
+        internalType: "struct iRouterCrossTalk.ExecutesStruct",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
-    name: "fetchFeetToken",
+    name: "fetchFeeToken",
     outputs: [
       {
         internalType: "address",
@@ -525,19 +514,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "bytes4",
-        name: "_selector",
-        type: "bytes4",
-      },
-      {
         internalType: "bytes",
-        name: "_data",
+        name: "data",
         type: "bytes",
-      },
-      {
-        internalType: "bytes32",
-        name: "hash",
-        type: "bytes32",
       },
     ],
     name: "routerSync",
@@ -640,6 +619,11 @@ const _abi = [
       {
         internalType: "uint256",
         name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_crossChainGasPrice",
         type: "uint256",
       },
     ],

@@ -37,8 +37,12 @@ contract MyCrossChainERC20 is CrossChainERC20, AccessControl {
         setFeeToken(_feeAddress);
     }
 
-    function setCrossChainGas(uint256 _gas) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        _setCrossChainGas(_gas);
+    function setCrossChainGasLimit(uint256 _gasLimit) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        _setCrossChainGasLimit(_gasLimit);
+    }
+
+    function approveFee(address _feeToken, uint256 _value) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        approveFees(_feeToken, _value);
     }
 
     /* ADMINISTRATIVE FUNCTIONS END */
@@ -47,5 +51,4 @@ contract MyCrossChainERC20 is CrossChainERC20, AccessControl {
     function faucet(address recepient, uint256 amount) external {
         _mint(recepient, amount);
     }
-
 }

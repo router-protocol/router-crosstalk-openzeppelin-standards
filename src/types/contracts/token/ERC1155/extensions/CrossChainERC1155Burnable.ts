@@ -27,23 +27,35 @@ import type {
   PromiseOrValue,
 } from "../../../../common";
 
+export declare namespace IRouterCrossTalk {
+  export type ExecutesStructStruct = {
+    chainID: PromiseOrValue<BigNumberish>;
+    nonce: PromiseOrValue<BigNumberish>;
+  };
+
+  export type ExecutesStructStructOutput = [number, BigNumber] & {
+    chainID: number;
+    nonce: BigNumber;
+  };
+}
+
 export interface CrossChainERC1155BurnableInterface extends utils.Interface {
   functions: {
     "Link(uint8,address)": FunctionFragment;
     "Unlink(uint8)": FunctionFragment;
-    "approveFees(address,uint256)": FunctionFragment;
     "balanceOf(address,uint256)": FunctionFragment;
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
     "burn(address,uint256,uint256)": FunctionFragment;
     "burnBatch(address,uint256[],uint256[])": FunctionFragment;
-    "fetchCrossChainGas()": FunctionFragment;
-    "fetchFeetToken()": FunctionFragment;
+    "fetchCrossChainGasLimit()": FunctionFragment;
+    "fetchExecutes(bytes32)": FunctionFragment;
+    "fetchFeeToken()": FunctionFragment;
     "fetchHandler()": FunctionFragment;
     "fetchLink(uint8)": FunctionFragment;
     "fetchLinkSetter()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "receiveCrossChain(address,uint256[],uint256[],bytes)": FunctionFragment;
-    "routerSync(uint8,address,bytes4,bytes,bytes32)": FunctionFragment;
+    "routerSync(uint8,address,bytes)": FunctionFragment;
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
@@ -55,13 +67,13 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "Link"
       | "Unlink"
-      | "approveFees"
       | "balanceOf"
       | "balanceOfBatch"
       | "burn"
       | "burnBatch"
-      | "fetchCrossChainGas"
-      | "fetchFeetToken"
+      | "fetchCrossChainGasLimit"
+      | "fetchExecutes"
+      | "fetchFeeToken"
       | "fetchHandler"
       | "fetchLink"
       | "fetchLinkSetter"
@@ -82,10 +94,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "Unlink",
     values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approveFees",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "balanceOf",
@@ -112,11 +120,15 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "fetchFeetToken",
+    functionFragment: "fetchExecutes",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "fetchFeeToken",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -149,8 +161,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>
     ]
   ): string;
@@ -189,10 +199,6 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: "Link", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "Unlink", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "approveFees",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "balanceOfBatch",
@@ -201,11 +207,15 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burnBatch", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "fetchFeetToken",
+    functionFragment: "fetchExecutes",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "fetchFeeToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -246,7 +256,7 @@ export interface CrossChainERC1155BurnableInterface extends utils.Interface {
 
   events: {
     "ApprovalForAll(address,address,bool)": EventFragment;
-    "CrossTalkReceive(uint8,uint8,address,address,bytes4,bytes,bytes32)": EventFragment;
+    "CrossTalkReceive(uint8,uint8,address)": EventFragment;
     "CrossTalkSend(uint8,uint8,address,address,bytes4,bytes,bytes32)": EventFragment;
     "Linkevent(uint8,address)": EventFragment;
     "TransferBatch(address,address,address,uint256[],uint256[])": EventFragment;
@@ -281,13 +291,9 @@ export interface CrossTalkReceiveEventObject {
   sourceChain: number;
   destChain: number;
   sourceAddress: string;
-  destinationAddress: string;
-  _selector: string;
-  _data: string;
-  _hash: string;
 }
 export type CrossTalkReceiveEvent = TypedEvent<
-  [number, number, string, string, string, string, string],
+  [number, number, string],
   CrossTalkReceiveEventObject
 >;
 
@@ -403,12 +409,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     balanceOf(
       account: PromiseOrValue<string>,
       id: PromiseOrValue<BigNumberish>,
@@ -435,9 +435,14 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<[BigNumber]>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<[string]>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[IRouterCrossTalk.ExecutesStructStructOutput]>;
+
+    fetchFeeToken(overrides?: CallOverrides): Promise<[string]>;
 
     fetchHandler(overrides?: CallOverrides): Promise<[string]>;
 
@@ -465,9 +470,7 @@ export interface CrossChainERC1155Burnable extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -517,12 +520,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  approveFees(
-    _feeToken: PromiseOrValue<string>,
-    _value: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   balanceOf(
     account: PromiseOrValue<string>,
     id: PromiseOrValue<BigNumberish>,
@@ -549,9 +546,14 @@ export interface CrossChainERC1155Burnable extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+  fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
-  fetchFeetToken(overrides?: CallOverrides): Promise<string>;
+  fetchExecutes(
+    hash: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<IRouterCrossTalk.ExecutesStructStructOutput>;
+
+  fetchFeeToken(overrides?: CallOverrides): Promise<string>;
 
   fetchHandler(overrides?: CallOverrides): Promise<string>;
 
@@ -579,9 +581,7 @@ export interface CrossChainERC1155Burnable extends BaseContract {
   routerSync(
     srcChainID: PromiseOrValue<BigNumberish>,
     srcAddress: PromiseOrValue<string>,
-    _selector: PromiseOrValue<BytesLike>,
-    _data: PromiseOrValue<BytesLike>,
-    hash: PromiseOrValue<BytesLike>,
+    data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -631,12 +631,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     balanceOf(
       account: PromiseOrValue<string>,
       id: PromiseOrValue<BigNumberish>,
@@ -663,9 +657,14 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<string>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<IRouterCrossTalk.ExecutesStructStructOutput>;
+
+    fetchFeeToken(overrides?: CallOverrides): Promise<string>;
 
     fetchHandler(overrides?: CallOverrides): Promise<string>;
 
@@ -693,9 +692,7 @@ export interface CrossChainERC1155Burnable extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean, string]>;
 
@@ -746,23 +743,15 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       approved?: null
     ): ApprovalForAllEventFilter;
 
-    "CrossTalkReceive(uint8,uint8,address,address,bytes4,bytes,bytes32)"(
+    "CrossTalkReceive(uint8,uint8,address)"(
       sourceChain?: PromiseOrValue<BigNumberish> | null,
       destChain?: PromiseOrValue<BigNumberish> | null,
-      sourceAddress?: null,
-      destinationAddress?: null,
-      _selector?: PromiseOrValue<BytesLike> | null,
-      _data?: null,
-      _hash?: null
+      sourceAddress?: null
     ): CrossTalkReceiveEventFilter;
     CrossTalkReceive(
       sourceChain?: PromiseOrValue<BigNumberish> | null,
       destChain?: PromiseOrValue<BigNumberish> | null,
-      sourceAddress?: null,
-      destinationAddress?: null,
-      _selector?: PromiseOrValue<BytesLike> | null,
-      _data?: null,
-      _hash?: null
+      sourceAddress?: null
     ): CrossTalkReceiveEventFilter;
 
     "CrossTalkSend(uint8,uint8,address,address,bytes4,bytes,bytes32)"(
@@ -851,12 +840,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     balanceOf(
       account: PromiseOrValue<string>,
       id: PromiseOrValue<BigNumberish>,
@@ -883,9 +866,14 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    fetchFeeToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     fetchHandler(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -913,9 +901,7 @@ export interface CrossChainERC1155Burnable extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -966,12 +952,6 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     balanceOf(
       account: PromiseOrValue<string>,
       id: PromiseOrValue<BigNumberish>,
@@ -998,11 +978,16 @@ export interface CrossChainERC1155Burnable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    fetchCrossChainGas(
+    fetchCrossChainGasLimit(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    fetchFeeToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     fetchHandler(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1030,9 +1015,7 @@ export interface CrossChainERC1155Burnable extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

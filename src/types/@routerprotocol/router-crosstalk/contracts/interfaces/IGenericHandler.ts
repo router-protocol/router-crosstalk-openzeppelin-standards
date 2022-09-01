@@ -28,23 +28,22 @@ export declare namespace IGenericHandler {
     _rSyncContract: PromiseOrValue<string>;
     _chainID: PromiseOrValue<BigNumberish>;
     _linkedContract: PromiseOrValue<string>;
-    linkerType: PromiseOrValue<BigNumberish>;
   };
 
-  export type RouterLinkerStructOutput = [string, number, string, number] & {
+  export type RouterLinkerStructOutput = [string, number, string] & {
     _rSyncContract: string;
     _chainID: number;
     _linkedContract: string;
-    linkerType: number;
   };
 }
 
 export interface IGenericHandlerInterface extends utils.Interface {
   functions: {
-    "MapContract((address,uint8,address,uint8),bytes)": FunctionFragment;
-    "UnMapContract((address,uint8,address,uint8),bytes)": FunctionFragment;
+    "MapContract((address,uint8,address))": FunctionFragment;
+    "UnMapContract((address,uint8,address))": FunctionFragment;
     "fetch_chainID()": FunctionFragment;
-    "genericDeposit(uint8,bytes4,bytes,bytes32,uint256,address)": FunctionFragment;
+    "genericDeposit(uint8,bytes,uint256,uint256,address)": FunctionFragment;
+    "replayGenericDeposit(uint8,uint64,uint256,uint256)": FunctionFragment;
   };
 
   getFunction(
@@ -53,15 +52,16 @@ export interface IGenericHandlerInterface extends utils.Interface {
       | "UnMapContract"
       | "fetch_chainID"
       | "genericDeposit"
+      | "replayGenericDeposit"
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "MapContract",
-    values: [IGenericHandler.RouterLinkerStruct, PromiseOrValue<BytesLike>]
+    values: [IGenericHandler.RouterLinkerStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "UnMapContract",
-    values: [IGenericHandler.RouterLinkerStruct, PromiseOrValue<BytesLike>]
+    values: [IGenericHandler.RouterLinkerStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "fetch_chainID",
@@ -72,10 +72,18 @@ export interface IGenericHandlerInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "replayGenericDeposit",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
 
@@ -93,6 +101,10 @@ export interface IGenericHandlerInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "genericDeposit",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "replayGenericDeposit",
     data: BytesLike
   ): Result;
 
@@ -128,13 +140,11 @@ export interface IGenericHandler extends BaseContract {
   functions: {
     MapContract(
       linker: IGenericHandler.RouterLinkerStruct,
-      _sign: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     UnMapContract(
       linker: IGenericHandler.RouterLinkerStruct,
-      _sign: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -142,24 +152,29 @@ export interface IGenericHandler extends BaseContract {
 
     genericDeposit(
       _destChainID: PromiseOrValue<BigNumberish>,
-      _selector: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      _hash: PromiseOrValue<BytesLike>,
-      _gas: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       _feeToken: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    replayGenericDeposit(
+      _destChainID: PromiseOrValue<BigNumberish>,
+      _depositNonce: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
   MapContract(
     linker: IGenericHandler.RouterLinkerStruct,
-    _sign: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   UnMapContract(
     linker: IGenericHandler.RouterLinkerStruct,
-    _sign: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -167,24 +182,29 @@ export interface IGenericHandler extends BaseContract {
 
   genericDeposit(
     _destChainID: PromiseOrValue<BigNumberish>,
-    _selector: PromiseOrValue<BytesLike>,
     _data: PromiseOrValue<BytesLike>,
-    _hash: PromiseOrValue<BytesLike>,
-    _gas: PromiseOrValue<BigNumberish>,
+    _gasLimit: PromiseOrValue<BigNumberish>,
+    _gasPrice: PromiseOrValue<BigNumberish>,
     _feeToken: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  replayGenericDeposit(
+    _destChainID: PromiseOrValue<BigNumberish>,
+    _depositNonce: PromiseOrValue<BigNumberish>,
+    _gasLimit: PromiseOrValue<BigNumberish>,
+    _gasPrice: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     MapContract(
       linker: IGenericHandler.RouterLinkerStruct,
-      _sign: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     UnMapContract(
       linker: IGenericHandler.RouterLinkerStruct,
-      _sign: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -192,11 +212,18 @@ export interface IGenericHandler extends BaseContract {
 
     genericDeposit(
       _destChainID: PromiseOrValue<BigNumberish>,
-      _selector: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      _hash: PromiseOrValue<BytesLike>,
-      _gas: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       _feeToken: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    replayGenericDeposit(
+      _destChainID: PromiseOrValue<BigNumberish>,
+      _depositNonce: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -206,13 +233,11 @@ export interface IGenericHandler extends BaseContract {
   estimateGas: {
     MapContract(
       linker: IGenericHandler.RouterLinkerStruct,
-      _sign: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     UnMapContract(
       linker: IGenericHandler.RouterLinkerStruct,
-      _sign: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -220,11 +245,18 @@ export interface IGenericHandler extends BaseContract {
 
     genericDeposit(
       _destChainID: PromiseOrValue<BigNumberish>,
-      _selector: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      _hash: PromiseOrValue<BytesLike>,
-      _gas: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       _feeToken: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    replayGenericDeposit(
+      _destChainID: PromiseOrValue<BigNumberish>,
+      _depositNonce: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
@@ -232,13 +264,11 @@ export interface IGenericHandler extends BaseContract {
   populateTransaction: {
     MapContract(
       linker: IGenericHandler.RouterLinkerStruct,
-      _sign: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     UnMapContract(
       linker: IGenericHandler.RouterLinkerStruct,
-      _sign: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -246,11 +276,18 @@ export interface IGenericHandler extends BaseContract {
 
     genericDeposit(
       _destChainID: PromiseOrValue<BigNumberish>,
-      _selector: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      _hash: PromiseOrValue<BytesLike>,
-      _gas: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       _feeToken: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    replayGenericDeposit(
+      _destChainID: PromiseOrValue<BigNumberish>,
+      _depositNonce: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };

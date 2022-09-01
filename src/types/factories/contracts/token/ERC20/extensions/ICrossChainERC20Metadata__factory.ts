@@ -142,7 +142,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "fetchCrossChainGas",
+    name: "fetchCrossChainGasLimit",
     outputs: [
       {
         internalType: "uint256",
@@ -231,6 +231,11 @@ const _abi = [
       {
         internalType: "uint256",
         name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_crossChainGasPrice",
         type: "uint256",
       },
     ],

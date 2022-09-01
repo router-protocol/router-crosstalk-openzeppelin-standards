@@ -33,7 +33,7 @@ export interface ICrossChainERC777Interface extends utils.Interface {
     "balanceOf(address)": FunctionFragment;
     "burn(uint256,bytes)": FunctionFragment;
     "defaultOperators()": FunctionFragment;
-    "fetchCrossChainGas()": FunctionFragment;
+    "fetchCrossChainGasLimit()": FunctionFragment;
     "granularity()": FunctionFragment;
     "isOperatorFor(address,address)": FunctionFragment;
     "name()": FunctionFragment;
@@ -51,7 +51,7 @@ export interface ICrossChainERC777Interface extends utils.Interface {
       | "balanceOf"
       | "burn"
       | "defaultOperators"
-      | "fetchCrossChainGas"
+      | "fetchCrossChainGasLimit"
       | "granularity"
       | "isOperatorFor"
       | "name"
@@ -80,7 +80,7 @@ export interface ICrossChainERC777Interface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -140,7 +140,7 @@ export interface ICrossChainERC777Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -297,7 +297,7 @@ export interface ICrossChainERC777 extends BaseContract {
 
     defaultOperators(overrides?: CallOverrides): Promise<[string[]]>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<[BigNumber]>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     granularity(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -361,7 +361,7 @@ export interface ICrossChainERC777 extends BaseContract {
 
   defaultOperators(overrides?: CallOverrides): Promise<string[]>;
 
-  fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+  fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   granularity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -425,7 +425,7 @@ export interface ICrossChainERC777 extends BaseContract {
 
     defaultOperators(overrides?: CallOverrides): Promise<string[]>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     granularity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -557,7 +557,7 @@ export interface ICrossChainERC777 extends BaseContract {
 
     defaultOperators(overrides?: CallOverrides): Promise<BigNumber>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     granularity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -622,7 +622,7 @@ export interface ICrossChainERC777 extends BaseContract {
 
     defaultOperators(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    fetchCrossChainGas(
+    fetchCrossChainGasLimit(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

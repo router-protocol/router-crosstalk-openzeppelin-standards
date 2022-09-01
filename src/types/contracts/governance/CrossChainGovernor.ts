@@ -28,6 +28,18 @@ import type {
   PromiseOrValue,
 } from "../../common";
 
+export declare namespace IRouterCrossTalk {
+  export type ExecutesStructStruct = {
+    chainID: PromiseOrValue<BigNumberish>;
+    nonce: PromiseOrValue<BigNumberish>;
+  };
+
+  export type ExecutesStructStructOutput = [number, BigNumber] & {
+    chainID: number;
+    nonce: BigNumber;
+  };
+}
+
 export interface CrossChainGovernorInterface extends utils.Interface {
   functions: {
     "BALLOT_TYPEHASH()": FunctionFragment;
@@ -35,15 +47,15 @@ export interface CrossChainGovernorInterface extends utils.Interface {
     "EXTENDED_BALLOT_TYPEHASH()": FunctionFragment;
     "Link(uint8,address)": FunctionFragment;
     "Unlink(uint8)": FunctionFragment;
-    "approveFees(address,uint256)": FunctionFragment;
     "castVote(uint256,uint8)": FunctionFragment;
     "castVoteBySig(uint256,uint8,uint8,bytes32,bytes32)": FunctionFragment;
     "castVoteWithReason(uint256,uint8,string)": FunctionFragment;
     "castVoteWithReasonAndParams(uint256,uint8,string,bytes)": FunctionFragment;
     "castVoteWithReasonAndParamsBySig(uint256,uint8,string,bytes,uint8,bytes32,bytes32)": FunctionFragment;
     "execute(address[],uint256[],bytes[],bytes32)": FunctionFragment;
-    "fetchCrossChainGas()": FunctionFragment;
-    "fetchFeetToken()": FunctionFragment;
+    "fetchCrossChainGasLimit()": FunctionFragment;
+    "fetchExecutes(bytes32)": FunctionFragment;
+    "fetchFeeToken()": FunctionFragment;
     "fetchHandler()": FunctionFragment;
     "fetchLink(uint8)": FunctionFragment;
     "fetchLinkSetter()": FunctionFragment;
@@ -63,7 +75,7 @@ export interface CrossChainGovernorInterface extends utils.Interface {
     "receiveVoteWithReasonAndParamsCrossChain(uint256,address,uint8,string,bytes)": FunctionFragment;
     "receiveVoteWithReasonCrossChain(uint256,address,uint8,string)": FunctionFragment;
     "relay(address,uint256,bytes)": FunctionFragment;
-    "routerSync(uint8,address,bytes4,bytes,bytes32)": FunctionFragment;
+    "routerSync(uint8,address,bytes)": FunctionFragment;
     "state(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "version()": FunctionFragment;
@@ -78,15 +90,15 @@ export interface CrossChainGovernorInterface extends utils.Interface {
       | "EXTENDED_BALLOT_TYPEHASH"
       | "Link"
       | "Unlink"
-      | "approveFees"
       | "castVote"
       | "castVoteBySig"
       | "castVoteWithReason"
       | "castVoteWithReasonAndParams"
       | "castVoteWithReasonAndParamsBySig"
       | "execute"
-      | "fetchCrossChainGas"
-      | "fetchFeetToken"
+      | "fetchCrossChainGasLimit"
+      | "fetchExecutes"
+      | "fetchFeeToken"
       | "fetchHandler"
       | "fetchLink"
       | "fetchLinkSetter"
@@ -133,10 +145,6 @@ export interface CrossChainGovernorInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "Unlink",
     values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approveFees",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "castVote",
@@ -191,11 +199,15 @@ export interface CrossChainGovernorInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "fetchFeetToken",
+    functionFragment: "fetchExecutes",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "fetchFeeToken",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -322,8 +334,6 @@ export interface CrossChainGovernorInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>
     ]
   ): string;
@@ -359,10 +369,6 @@ export interface CrossChainGovernorInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "Link", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "Unlink", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "approveFees",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "castVote", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "castVoteBySig",
@@ -382,11 +388,15 @@ export interface CrossChainGovernorInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "execute", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "fetchFeetToken",
+    functionFragment: "fetchExecutes",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "fetchFeeToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -461,7 +471,7 @@ export interface CrossChainGovernorInterface extends utils.Interface {
   ): Result;
 
   events: {
-    "CrossTalkReceive(uint8,uint8,address,address,bytes4,bytes,bytes32)": EventFragment;
+    "CrossTalkReceive(uint8,uint8,address)": EventFragment;
     "CrossTalkSend(uint8,uint8,address,address,bytes4,bytes,bytes32)": EventFragment;
     "Linkevent(uint8,address)": EventFragment;
     "ProposalCanceled(uint256)": EventFragment;
@@ -487,13 +497,9 @@ export interface CrossTalkReceiveEventObject {
   sourceChain: number;
   destChain: number;
   sourceAddress: string;
-  destinationAddress: string;
-  _selector: string;
-  _data: string;
-  _hash: string;
 }
 export type CrossTalkReceiveEvent = TypedEvent<
-  [number, number, string, string, string, string, string],
+  [number, number, string],
   CrossTalkReceiveEventObject
 >;
 
@@ -659,12 +665,6 @@ export interface CrossChainGovernor extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     castVote(
       proposalId: PromiseOrValue<BigNumberish>,
       support: PromiseOrValue<BigNumberish>,
@@ -714,9 +714,14 @@ export interface CrossChainGovernor extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<[BigNumber]>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<[string]>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[IRouterCrossTalk.ExecutesStructStructOutput]>;
+
+    fetchFeeToken(overrides?: CallOverrides): Promise<[string]>;
 
     fetchHandler(overrides?: CallOverrides): Promise<[string]>;
 
@@ -834,9 +839,7 @@ export interface CrossChainGovernor extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -871,12 +874,6 @@ export interface CrossChainGovernor extends BaseContract {
 
   Unlink(
     _chainID: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  approveFees(
-    _feeToken: PromiseOrValue<string>,
-    _value: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -929,9 +926,14 @@ export interface CrossChainGovernor extends BaseContract {
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+  fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
-  fetchFeetToken(overrides?: CallOverrides): Promise<string>;
+  fetchExecutes(
+    hash: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<IRouterCrossTalk.ExecutesStructStructOutput>;
+
+  fetchFeeToken(overrides?: CallOverrides): Promise<string>;
 
   fetchHandler(overrides?: CallOverrides): Promise<string>;
 
@@ -1049,9 +1051,7 @@ export interface CrossChainGovernor extends BaseContract {
   routerSync(
     srcChainID: PromiseOrValue<BigNumberish>,
     srcAddress: PromiseOrValue<string>,
-    _selector: PromiseOrValue<BytesLike>,
-    _data: PromiseOrValue<BytesLike>,
-    hash: PromiseOrValue<BytesLike>,
+    data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1086,12 +1086,6 @@ export interface CrossChainGovernor extends BaseContract {
 
     Unlink(
       _chainID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1144,9 +1138,14 @@ export interface CrossChainGovernor extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<string>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<IRouterCrossTalk.ExecutesStructStructOutput>;
+
+    fetchFeeToken(overrides?: CallOverrides): Promise<string>;
 
     fetchHandler(overrides?: CallOverrides): Promise<string>;
 
@@ -1264,9 +1263,7 @@ export interface CrossChainGovernor extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean, string]>;
 
@@ -1288,23 +1285,15 @@ export interface CrossChainGovernor extends BaseContract {
   };
 
   filters: {
-    "CrossTalkReceive(uint8,uint8,address,address,bytes4,bytes,bytes32)"(
+    "CrossTalkReceive(uint8,uint8,address)"(
       sourceChain?: PromiseOrValue<BigNumberish> | null,
       destChain?: PromiseOrValue<BigNumberish> | null,
-      sourceAddress?: null,
-      destinationAddress?: null,
-      _selector?: PromiseOrValue<BytesLike> | null,
-      _data?: null,
-      _hash?: null
+      sourceAddress?: null
     ): CrossTalkReceiveEventFilter;
     CrossTalkReceive(
       sourceChain?: PromiseOrValue<BigNumberish> | null,
       destChain?: PromiseOrValue<BigNumberish> | null,
-      sourceAddress?: null,
-      destinationAddress?: null,
-      _selector?: PromiseOrValue<BytesLike> | null,
-      _data?: null,
-      _hash?: null
+      sourceAddress?: null
     ): CrossTalkReceiveEventFilter;
 
     "CrossTalkSend(uint8,uint8,address,address,bytes4,bytes,bytes32)"(
@@ -1424,12 +1413,6 @@ export interface CrossChainGovernor extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     castVote(
       proposalId: PromiseOrValue<BigNumberish>,
       support: PromiseOrValue<BigNumberish>,
@@ -1479,9 +1462,14 @@ export interface CrossChainGovernor extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    fetchFeeToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     fetchHandler(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1599,9 +1587,7 @@ export interface CrossChainGovernor extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1639,12 +1625,6 @@ export interface CrossChainGovernor extends BaseContract {
 
     Unlink(
       _chainID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1697,11 +1677,16 @@ export interface CrossChainGovernor extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    fetchCrossChainGas(
+    fetchCrossChainGasLimit(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    fetchFeeToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     fetchHandler(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1819,9 +1804,7 @@ export interface CrossChainGovernor extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

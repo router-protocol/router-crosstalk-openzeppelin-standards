@@ -27,16 +27,28 @@ import type {
   PromiseOrValue,
 } from "../../../common";
 
+export declare namespace IRouterCrossTalk {
+  export type ExecutesStructStruct = {
+    chainID: PromiseOrValue<BigNumberish>;
+    nonce: PromiseOrValue<BigNumberish>;
+  };
+
+  export type ExecutesStructStructOutput = [number, BigNumber] & {
+    chainID: number;
+    nonce: BigNumber;
+  };
+}
+
 export interface RouterCrossTalkInterface extends utils.Interface {
   functions: {
     "Link(uint8,address)": FunctionFragment;
     "Unlink(uint8)": FunctionFragment;
-    "approveFees(address,uint256)": FunctionFragment;
-    "fetchFeetToken()": FunctionFragment;
+    "fetchExecutes(bytes32)": FunctionFragment;
+    "fetchFeeToken()": FunctionFragment;
     "fetchHandler()": FunctionFragment;
     "fetchLink(uint8)": FunctionFragment;
     "fetchLinkSetter()": FunctionFragment;
-    "routerSync(uint8,address,bytes4,bytes,bytes32)": FunctionFragment;
+    "routerSync(uint8,address,bytes)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
   };
 
@@ -44,8 +56,8 @@ export interface RouterCrossTalkInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "Link"
       | "Unlink"
-      | "approveFees"
-      | "fetchFeetToken"
+      | "fetchExecutes"
+      | "fetchFeeToken"
       | "fetchHandler"
       | "fetchLink"
       | "fetchLinkSetter"
@@ -62,11 +74,11 @@ export interface RouterCrossTalkInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "approveFees",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    functionFragment: "fetchExecutes",
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
-    functionFragment: "fetchFeetToken",
+    functionFragment: "fetchFeeToken",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -86,8 +98,6 @@ export interface RouterCrossTalkInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>
     ]
   ): string;
@@ -99,11 +109,11 @@ export interface RouterCrossTalkInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "Link", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "Unlink", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "approveFees",
+    functionFragment: "fetchExecutes",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "fetchFeetToken",
+    functionFragment: "fetchFeeToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -122,7 +132,7 @@ export interface RouterCrossTalkInterface extends utils.Interface {
   ): Result;
 
   events: {
-    "CrossTalkReceive(uint8,uint8,address,address,bytes4,bytes,bytes32)": EventFragment;
+    "CrossTalkReceive(uint8,uint8,address)": EventFragment;
     "CrossTalkSend(uint8,uint8,address,address,bytes4,bytes,bytes32)": EventFragment;
     "Linkevent(uint8,address)": EventFragment;
     "Unlinkevent(uint8,address)": EventFragment;
@@ -138,13 +148,9 @@ export interface CrossTalkReceiveEventObject {
   sourceChain: number;
   destChain: number;
   sourceAddress: string;
-  destinationAddress: string;
-  _selector: string;
-  _data: string;
-  _hash: string;
 }
 export type CrossTalkReceiveEvent = TypedEvent<
-  [number, number, string, string, string, string, string],
+  [number, number, string],
   CrossTalkReceiveEventObject
 >;
 
@@ -224,13 +230,12 @@ export interface RouterCrossTalk extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[IRouterCrossTalk.ExecutesStructStructOutput]>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<[string]>;
+    fetchFeeToken(overrides?: CallOverrides): Promise<[string]>;
 
     fetchHandler(overrides?: CallOverrides): Promise<[string]>;
 
@@ -244,9 +249,7 @@ export interface RouterCrossTalk extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -267,13 +270,12 @@ export interface RouterCrossTalk extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  approveFees(
-    _feeToken: PromiseOrValue<string>,
-    _value: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  fetchExecutes(
+    hash: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<IRouterCrossTalk.ExecutesStructStructOutput>;
 
-  fetchFeetToken(overrides?: CallOverrides): Promise<string>;
+  fetchFeeToken(overrides?: CallOverrides): Promise<string>;
 
   fetchHandler(overrides?: CallOverrides): Promise<string>;
 
@@ -287,9 +289,7 @@ export interface RouterCrossTalk extends BaseContract {
   routerSync(
     srcChainID: PromiseOrValue<BigNumberish>,
     srcAddress: PromiseOrValue<string>,
-    _selector: PromiseOrValue<BytesLike>,
-    _data: PromiseOrValue<BytesLike>,
-    hash: PromiseOrValue<BytesLike>,
+    data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -310,13 +310,12 @@ export interface RouterCrossTalk extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<IRouterCrossTalk.ExecutesStructStructOutput>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<string>;
+    fetchFeeToken(overrides?: CallOverrides): Promise<string>;
 
     fetchHandler(overrides?: CallOverrides): Promise<string>;
 
@@ -330,9 +329,7 @@ export interface RouterCrossTalk extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean, string]>;
 
@@ -343,23 +340,15 @@ export interface RouterCrossTalk extends BaseContract {
   };
 
   filters: {
-    "CrossTalkReceive(uint8,uint8,address,address,bytes4,bytes,bytes32)"(
+    "CrossTalkReceive(uint8,uint8,address)"(
       sourceChain?: PromiseOrValue<BigNumberish> | null,
       destChain?: PromiseOrValue<BigNumberish> | null,
-      sourceAddress?: null,
-      destinationAddress?: null,
-      _selector?: PromiseOrValue<BytesLike> | null,
-      _data?: null,
-      _hash?: null
+      sourceAddress?: null
     ): CrossTalkReceiveEventFilter;
     CrossTalkReceive(
       sourceChain?: PromiseOrValue<BigNumberish> | null,
       destChain?: PromiseOrValue<BigNumberish> | null,
-      sourceAddress?: null,
-      destinationAddress?: null,
-      _selector?: PromiseOrValue<BytesLike> | null,
-      _data?: null,
-      _hash?: null
+      sourceAddress?: null
     ): CrossTalkReceiveEventFilter;
 
     "CrossTalkSend(uint8,uint8,address,address,bytes4,bytes,bytes32)"(
@@ -412,13 +401,12 @@ export interface RouterCrossTalk extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchFeeToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     fetchHandler(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -432,9 +420,7 @@ export interface RouterCrossTalk extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -456,13 +442,12 @@ export interface RouterCrossTalk extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    approveFees(
-      _feeToken: PromiseOrValue<string>,
-      _value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    fetchExecutes(
+      hash: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    fetchFeetToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    fetchFeeToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     fetchHandler(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -476,9 +461,7 @@ export interface RouterCrossTalk extends BaseContract {
     routerSync(
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _selector: PromiseOrValue<BytesLike>,
-      _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

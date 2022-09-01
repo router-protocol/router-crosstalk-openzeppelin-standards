@@ -29,7 +29,7 @@ import type {
 
 export interface GenericHandlerTestInterface extends utils.Interface {
   functions: {
-    "execute(address,uint8,address,bytes4,bytes,bytes32)": FunctionFragment;
+    "execute(address,uint8,address,bytes)": FunctionFragment;
     "fetch_chainID()": FunctionFragment;
     "genericDeposit(uint8,bytes4,bytes,bytes32,uint256,address)": FunctionFragment;
     "linkContract(address,uint8,address)": FunctionFragment;
@@ -51,8 +51,6 @@ export interface GenericHandlerTestInterface extends utils.Interface {
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>
     ]
   ): string;
@@ -155,9 +153,7 @@ export interface GenericHandlerTest extends BaseContract {
       _crossTalkAddr: PromiseOrValue<string>,
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _interface: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -191,9 +187,7 @@ export interface GenericHandlerTest extends BaseContract {
     _crossTalkAddr: PromiseOrValue<string>,
     srcChainID: PromiseOrValue<BigNumberish>,
     srcAddress: PromiseOrValue<string>,
-    _interface: PromiseOrValue<BytesLike>,
     _data: PromiseOrValue<BytesLike>,
-    hash: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -227,9 +221,7 @@ export interface GenericHandlerTest extends BaseContract {
       _crossTalkAddr: PromiseOrValue<string>,
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _interface: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -283,9 +275,7 @@ export interface GenericHandlerTest extends BaseContract {
       _crossTalkAddr: PromiseOrValue<string>,
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _interface: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -320,9 +310,7 @@ export interface GenericHandlerTest extends BaseContract {
       _crossTalkAddr: PromiseOrValue<string>,
       srcChainID: PromiseOrValue<BigNumberish>,
       srcAddress: PromiseOrValue<string>,
-      _interface: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      hash: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

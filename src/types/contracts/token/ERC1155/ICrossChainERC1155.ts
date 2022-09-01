@@ -31,7 +31,7 @@ export interface ICrossChainERC1155Interface extends utils.Interface {
   functions: {
     "balanceOf(address,uint256)": FunctionFragment;
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
-    "fetchCrossChainGas()": FunctionFragment;
+    "fetchCrossChainGasLimit()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
@@ -43,7 +43,7 @@ export interface ICrossChainERC1155Interface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "balanceOf"
       | "balanceOfBatch"
-      | "fetchCrossChainGas"
+      | "fetchCrossChainGasLimit"
       | "isApprovedForAll"
       | "safeBatchTransferFrom"
       | "safeTransferFrom"
@@ -60,7 +60,7 @@ export interface ICrossChainERC1155Interface extends utils.Interface {
     values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -102,7 +102,7 @@ export interface ICrossChainERC1155Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -226,7 +226,7 @@ export interface ICrossChainERC1155 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<[BigNumber]>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     isApprovedForAll(
       account: PromiseOrValue<string>,
@@ -276,7 +276,7 @@ export interface ICrossChainERC1155 extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber[]>;
 
-  fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+  fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   isApprovedForAll(
     account: PromiseOrValue<string>,
@@ -326,7 +326,7 @@ export interface ICrossChainERC1155 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     isApprovedForAll(
       account: PromiseOrValue<string>,
@@ -426,7 +426,7 @@ export interface ICrossChainERC1155 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     isApprovedForAll(
       account: PromiseOrValue<string>,
@@ -477,7 +477,7 @@ export interface ICrossChainERC1155 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    fetchCrossChainGas(
+    fetchCrossChainGasLimit(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

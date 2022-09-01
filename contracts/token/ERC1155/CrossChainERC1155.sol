@@ -14,7 +14,7 @@ import "@routerprotocol/router-crosstalk/contracts/RouterCrossTalk.sol";
  * https://dev.routerprotocol.com/crosstalk-library/overview
  */
 contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, RouterCrossTalk {
-    uint256 private _crossChainGas;
+    uint256 private _crossChainGasLimit;
 
     constructor(string memory uri_, address genericHandler_) ERC1155(uri_) RouterCrossTalk(genericHandler_) {}
 
@@ -35,19 +35,19 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, RouterCrossTalk {
     }
 
     /**
-     * @notice setCrossChainGas Used to set CrossChainGas, this can only be set by CrossChain Admin or Admins
-     * @param _gas Amount of gas that is to be set
+     * @notice setCrossChainGasLimit Used to set CrossChainGas, this can only be set by CrossChain Admin or Admins
+     * @param _gasLimit Amount of gasLimit that is to be set
      */
-    function _setCrossChainGas(uint256 _gas) internal {
-        _crossChainGas = _gas;
+    function _setCrossChainGasLimit(uint256 _gasLimit) internal {
+        _crossChainGasLimit = _gasLimit;
     }
 
     /**
-     * @notice fetchCrossChainGas Used to fetch CrossChainGas
+     * @notice fetchCrossChainGasLimit Used to fetch CrossChainGas
      * @return crossChainGas that is set
      */
-    function fetchCrossChainGas() external view override returns (uint256) {
-        return _crossChainGas;
+    function fetchCrossChainGasLimit() external view override returns (uint256) {
+        return _crossChainGasLimit;
     }
 
     /**
@@ -58,13 +58,25 @@ contract CrossChainERC1155 is ERC1155, ICrossChainERC1155, RouterCrossTalk {
         address _recipient,
         uint256[] memory _ids,
         uint256[] memory _amounts,
-        bytes memory _data
-    ) internal returns (bool) {
+        bytes memory _data,
+        uint256 _crossChainGasPrice
+    ) internal returns (bool, bytes32) {
+        require(_recipient != address(0), "CrossChainERC1155: Recipient address cannot be null");
         _burnBatch(msg.sender, _ids, _amounts);
         bytes4 _selector = bytes4(keccak256("receiveCrossChain(address,uint256[],uint256[],bytes)"));
         bytes memory data = abi.encode(_recipient, _ids, _amounts, _data);
-        bool success = routerSend(_chainID, _selector, data, _crossChainGas);
-        return success;
+        (bool success, bytes32 hash) = routerSend(_chainID, _selector, data, _crossChainGasLimit, _crossChainGasPrice);
+        return (success, hash);
+    }
+
+    // The hash returned from RouterSend function should be used to replay a tx
+    // These gas limit and gas price should be higher than one entered in the original tx.
+    function replayTx(
+        bytes32 hash,
+        uint256 gasLimit,
+        uint256 gasPrice
+    ) internal {
+        routerReplay(hash, gasLimit, gasPrice);
     }
 
     /**

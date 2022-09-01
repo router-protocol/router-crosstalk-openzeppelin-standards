@@ -37,7 +37,7 @@ export interface ICrossChainGovernorInterface extends utils.Interface {
     "castVoteWithReasonAndParams(uint256,uint8,string,bytes)": FunctionFragment;
     "castVoteWithReasonAndParamsBySig(uint256,uint8,string,bytes,uint8,bytes32,bytes32)": FunctionFragment;
     "execute(address[],uint256[],bytes[],bytes32)": FunctionFragment;
-    "fetchCrossChainGas()": FunctionFragment;
+    "fetchCrossChainGasLimit()": FunctionFragment;
     "getVotes(address,uint256)": FunctionFragment;
     "getVotesWithParams(address,uint256,bytes)": FunctionFragment;
     "hasVoted(uint256,address)": FunctionFragment;
@@ -63,7 +63,7 @@ export interface ICrossChainGovernorInterface extends utils.Interface {
       | "castVoteWithReasonAndParams"
       | "castVoteWithReasonAndParamsBySig"
       | "execute"
-      | "fetchCrossChainGas"
+      | "fetchCrossChainGasLimit"
       | "getVotes"
       | "getVotesWithParams"
       | "hasVoted"
@@ -137,7 +137,7 @@ export interface ICrossChainGovernorInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -228,7 +228,7 @@ export interface ICrossChainGovernorInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "execute", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getVotes", data: BytesLike): Result;
@@ -440,7 +440,7 @@ export interface ICrossChainGovernor extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<[BigNumber]>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getVotes(
       account: PromiseOrValue<string>,
@@ -562,7 +562,7 @@ export interface ICrossChainGovernor extends BaseContract {
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+  fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   getVotes(
     account: PromiseOrValue<string>,
@@ -684,7 +684,7 @@ export interface ICrossChainGovernor extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getVotes(
       account: PromiseOrValue<string>,
@@ -870,7 +870,7 @@ export interface ICrossChainGovernor extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getVotes(
       account: PromiseOrValue<string>,
@@ -993,7 +993,7 @@ export interface ICrossChainGovernor extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    fetchCrossChainGas(
+    fetchCrossChainGasLimit(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

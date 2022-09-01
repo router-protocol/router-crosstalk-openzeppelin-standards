@@ -19,8 +19,8 @@ interface ICrossChainERC777 is IERC777 {
     function balanceOf(address owner) external view returns (uint256);
 
     /**
-     * @notice fetchCrossChainGas Used to fetch CrossChainGas
-     * @return crossChainGas that is set
+     * @notice fetchCrossChainGasLimit Used to fetch CrossChainGas
+     * @return crossChainGasLimit that is set
      */
-    function fetchCrossChainGas() external view returns (uint256);
+    function fetchCrossChainGasLimit() external view returns (uint256);
 }

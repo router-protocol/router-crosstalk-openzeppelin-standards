@@ -64,12 +64,12 @@ contract CrossChainTokenTimelock {
      * @dev Transfers tokens held by the timelock to the beneficiary. Will only succeed if invoked after the release
      * time.
      */
-    function release(uint8 chainID) public virtual {
+    function release(uint8 chainID, uint256 crossChainGasPrice) public virtual {
         require(block.timestamp >= releaseTime(), "TokenTimelock: current time is before release time");
 
         uint256 amount = token().balanceOf(address(this));
         require(amount > 0, "TokenTimelock: no tokens to release");
 
-        token().safeTransferCrossChain(chainID, beneficiary(), amount);
+        token().safeTransferCrossChain(chainID, beneficiary(), amount, crossChainGasPrice);
     }
 }

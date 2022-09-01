@@ -38,11 +38,12 @@ library SafeCrossChainERC20 {
         ICrossChainERC20 token,
         uint8 chainID,
         address recipient,
-        uint256 amount
+        uint256 amount,
+        uint256 crossChainGasPrice
     ) internal {
         _callOptionalReturn(
             token,
-            abi.encodeWithSelector(token.transferCrossChain.selector, chainID, recipient, amount)
+            abi.encodeWithSelector(token.transferCrossChain.selector, chainID, recipient, amount, crossChainGasPrice)
         );
     }
 

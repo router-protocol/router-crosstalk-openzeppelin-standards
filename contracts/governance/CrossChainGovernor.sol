@@ -13,7 +13,7 @@ import "@routerprotocol/router-crosstalk/contracts/RouterCrossTalk.sol";
  * https://dev.routerprotocol.com/crosstalk-library/overview
  */
 abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCrossTalk {
-    uint256 private _crossChainGas;
+    uint256 private _crossChainGasLimit;
 
     constructor(string memory name_, address genericHandler_) Governor(name_) RouterCrossTalk(genericHandler_) {}
 
@@ -31,19 +31,19 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
     }
 
     /**
-     * @notice setCrossChainGas Used to set CrossChainGas, this can only be set by CrossChain Admin or Admins
-     * @param _gas Amount of gas that is to be set
+     * @notice setCrossChainGasLimit Used to set CrossChainGasLimit, this can only be set by CrossChain Admin or Admins
+     * @param _gasLimit Amount of gasLimit that is to be set
      */
-    function _setCrossChainGas(uint256 _gas) internal {
-        _crossChainGas = _gas;
+    function _setCrossChainGasLimit(uint256 _gasLimit) internal {
+        _crossChainGasLimit = _gasLimit;
     }
 
     /**
-     * @notice fetchCrossChainGas Used to fetch CrossChainGas
-     * @return crossChainGas that is set
+     * @notice fetchCrossChainGasLimit Used to fetch CrossChainGas
+     * @return crossChainGasLimit that is set
      */
-    function fetchCrossChainGas() external view override returns (uint256) {
-        return _crossChainGas;
+    function fetchCrossChainGasLimit() external view override returns (uint256) {
+        return _crossChainGasLimit;
     }
 
     /**
@@ -54,12 +54,13 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
         uint8 _chainID,
         uint256 proposalId,
         uint8 support,
-        string calldata reason
-    ) internal returns (bool) {
+        string calldata reason,
+        uint256 _crossChainGasPrice
+    ) internal returns (bool, bytes32) {
         bytes4 _selector = bytes4(keccak256("receiveVoteWithReasonCrossChain(uint256,address,uint8,string)"));
         bytes memory _data = abi.encode(proposalId, msg.sender, support, reason);
-        bool success = routerSend(_chainID, _selector, _data, _crossChainGas);
-        return success;
+        (bool success, bytes32 hash) = routerSend(_chainID, _selector, _data, _crossChainGasLimit, _crossChainGasPrice);
+        return (success, hash);
     }
 
     /**
@@ -71,14 +72,15 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
         uint256 proposalId,
         uint8 support,
         string calldata reason,
-        bytes memory params
-    ) internal returns (bool) {
+        bytes memory params,
+        uint256 _crossChainGasPrice
+    ) internal returns (bool, bytes32) {
         bytes4 _selector = bytes4(
             keccak256("receiveVoteWithReasonAndParamsCrossChain(uint256,address,uint8,string,bytes)")
         );
         bytes memory _data = abi.encode(proposalId, msg.sender, support, reason, params);
-        bool success = routerSend(_chainID, _selector, _data, _crossChainGas);
-        return success;
+        (bool success, bytes32 hash) = routerSend(_chainID, _selector, _data, _crossChainGasLimit, _crossChainGasPrice);
+        return (success, hash);
     }
 
     /**
@@ -92,8 +94,9 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
         uint8 support,
         uint8 v,
         bytes32 r,
-        bytes32 s
-    ) internal returns (bool) {
+        bytes32 s,
+        uint256 _crossChainGasPrice
+    ) internal returns (bool, bytes32) {
         address voter = ECDSA.recover(
             _hashTypedDataV4(keccak256(abi.encode(BALLOT_TYPEHASH, proposalId, support))),
             v,
@@ -102,8 +105,8 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
         );
         bytes4 _selector = bytes4(keccak256("receiveVoteWithReasonCrossChain(uint256,address,uint8,string)"));
         bytes memory _data = abi.encode(proposalId, voter, support, "");
-        bool success = routerSend(_chainID, _selector, _data, _crossChainGas);
-        return success;
+        (bool success, bytes32 hash) = routerSend(_chainID, _selector, _data, _crossChainGasLimit, _crossChainGasPrice);
+        return (success, hash);
     }
 
     /**
@@ -119,8 +122,9 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
         bytes memory params,
         uint8 v,
         bytes32 r,
-        bytes32 s
-    ) internal returns (bool) {
+        bytes32 s,
+        uint256 _crossChainGasPrice
+    ) internal returns (bool, bytes32) {
         address voter = ECDSA.recover(
             _hashTypedDataV4(
                 keccak256(
@@ -141,8 +145,18 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
             keccak256("receiveVoteWithReasonAndParamsCrossChain(uint256,address,uint8,string,bytes)")
         );
         bytes memory _data = abi.encode(proposalId, voter, support, reason, params);
-        bool success = routerSend(_chainID, _selector, _data, _crossChainGas);
-        return success;
+        (bool success, bytes32 hash) = routerSend(_chainID, _selector, _data, _crossChainGasLimit, _crossChainGasPrice);
+        return (success, hash);
+    }
+
+    // The hash returned from RouterSend function should be used to replay a tx
+    // These gas limit and gas price should be higher than one entered in the original tx.
+    function replayTx(
+        bytes32 hash,
+        uint256 gasLimit,
+        uint256 gasPrice
+    ) internal {
+        routerReplay(hash, gasLimit, gasPrice);
     }
 
     /**
@@ -169,10 +183,8 @@ abstract contract CrossChainGovernor is Governor, ICrossChainGovernor, RouterCro
             bytes4(keccak256("receiveVoteWithReasonAndParamsCrossChain(uint256,address,uint8,string,bytes)")) ==
             _selector
         ) {
-            (uint256 _proposalId, address _voter, uint8 _support, string memory _reason, bytes memory _params) = abi.decode(
-                _data,
-                (uint256, address, uint8, string, bytes)
-            );
+            (uint256 _proposalId, address _voter, uint8 _support, string memory _reason, bytes memory _params) = abi
+                .decode(_data, (uint256, address, uint8, string, bytes));
             (bool success, bytes memory returnData) = address(this).call(
                 abi.encodeWithSelector(_selector, _proposalId, _voter, _support, _reason, _params)
             );

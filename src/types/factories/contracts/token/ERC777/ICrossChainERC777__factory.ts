@@ -230,7 +230,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "fetchCrossChainGas",
+    name: "fetchCrossChainGasLimit",
     outputs: [
       {
         internalType: "uint256",

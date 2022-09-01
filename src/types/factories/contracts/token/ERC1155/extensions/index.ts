@@ -3,6 +3,5 @@
 /* eslint-disable */
 export { CrossChainERC1155Burnable__factory } from "./CrossChainERC1155Burnable__factory";
 export { CrossChainERC1155Pausable__factory } from "./CrossChainERC1155Pausable__factory";
-export { CrossChainERC1155Supply__factory } from "./CrossChainERC1155Supply__factory";
 export { CrossChainERC1155URIStorage__factory } from "./CrossChainERC1155URIStorage__factory";
 export { ICrossChainERC1155MetadataURI__factory } from "./ICrossChainERC1155MetadataURI__factory";

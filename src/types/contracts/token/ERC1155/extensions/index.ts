@@ -3,6 +3,5 @@
 /* eslint-disable */
 export type { CrossChainERC1155Burnable } from "./CrossChainERC1155Burnable";
 export type { CrossChainERC1155Pausable } from "./CrossChainERC1155Pausable";
-export type { CrossChainERC1155Supply } from "./CrossChainERC1155Supply";
 export type { CrossChainERC1155URIStorage } from "./CrossChainERC1155URIStorage";
 export type { ICrossChainERC1155MetadataURI } from "./ICrossChainERC1155MetadataURI";

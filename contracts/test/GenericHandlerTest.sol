@@ -25,12 +25,10 @@ contract GenericHandlerTest {
         address _crossTalkAddr,
         uint8 srcChainID,
         address srcAddress,
-        bytes4 _interface,
-        bytes memory _data,
-        bytes32 hash
+        bytes memory _data
     ) external {
         iRouterCrossTalk CrossTalk = iRouterCrossTalk(_crossTalkAddr);
-        CrossTalk.routerSync(srcChainID, srcAddress, _interface, _data, hash);
+        CrossTalk.routerSync(srcChainID, srcAddress, _data);
     }
 
     function linkContract(

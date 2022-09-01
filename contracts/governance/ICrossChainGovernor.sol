@@ -10,8 +10,8 @@ import "@openzeppelin/contracts/governance/IGovernor.sol";
  */
 abstract contract ICrossChainGovernor is IGovernor {
     /**
-     * @notice fetchCrossChainGas Used to fetch CrossChainGas
-     * @return crossChainGas that is set
+     * @notice fetchCrossChainGasLimit Used to fetch CrossChainGasLimit
+     * @return crossChainGasLimit that is set
      */
-    function fetchCrossChainGas() external view virtual returns (uint256);
+    function fetchCrossChainGasLimit() external view virtual returns (uint256);
 }

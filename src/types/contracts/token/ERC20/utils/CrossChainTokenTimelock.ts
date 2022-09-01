@@ -26,7 +26,7 @@ import type {
 export interface CrossChainTokenTimelockInterface extends utils.Interface {
   functions: {
     "beneficiary()": FunctionFragment;
-    "release(uint8)": FunctionFragment;
+    "release(uint8,uint256)": FunctionFragment;
     "releaseTime()": FunctionFragment;
     "token()": FunctionFragment;
   };
@@ -41,7 +41,7 @@ export interface CrossChainTokenTimelockInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "release",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "releaseTime",
@@ -94,6 +94,7 @@ export interface CrossChainTokenTimelock extends BaseContract {
 
     release(
       chainID: PromiseOrValue<BigNumberish>,
+      crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -106,6 +107,7 @@ export interface CrossChainTokenTimelock extends BaseContract {
 
   release(
     chainID: PromiseOrValue<BigNumberish>,
+    crossChainGasPrice: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -118,6 +120,7 @@ export interface CrossChainTokenTimelock extends BaseContract {
 
     release(
       chainID: PromiseOrValue<BigNumberish>,
+      crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -133,6 +136,7 @@ export interface CrossChainTokenTimelock extends BaseContract {
 
     release(
       chainID: PromiseOrValue<BigNumberish>,
+      crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -146,6 +150,7 @@ export interface CrossChainTokenTimelock extends BaseContract {
 
     release(
       chainID: PromiseOrValue<BigNumberish>,
+      crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

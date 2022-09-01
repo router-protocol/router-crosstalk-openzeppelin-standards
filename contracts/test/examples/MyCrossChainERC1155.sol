@@ -44,7 +44,11 @@ contract MyCrossChainERC1155 is CrossChainERC1155 {
     }
 
     function setCrossChainGas(uint256 _gas) public onlyOwner {
-        _setCrossChainGas(_gas);
+        _setCrossChainGasLimit(_gas);
+    }
+
+    function approveFee(address _feeToken, uint256 _value) external onlyOwner {
+        approveFees(_feeToken, _value);
     }
 
     /* ADMINISTRATIVE FUNCTIONS END */
@@ -54,9 +58,10 @@ contract MyCrossChainERC1155 is CrossChainERC1155 {
         address _recipient,
         uint256[] memory _ids,
         uint256[] memory _amounts,
-        bytes memory _data
+        bytes memory _data,
+        uint256 _crossChainGasPrice
     ) external {
-        _sendCrossChain(_chainID, _recipient, _ids, _amounts, _data);
+        _sendCrossChain(_chainID, _recipient, _ids, _amounts, _data, _crossChainGasPrice);
     }
 
     function supportsInterface(bytes4 interfaceId) public view virtual override(CrossChainERC1155) returns (bool) {

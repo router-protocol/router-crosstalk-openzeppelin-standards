@@ -33,12 +33,12 @@ export interface ICrossChainERC20MetadataInterface extends utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "decimals()": FunctionFragment;
-    "fetchCrossChainGas()": FunctionFragment;
+    "fetchCrossChainGasLimit()": FunctionFragment;
     "name()": FunctionFragment;
     "symbol()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
-    "transferCrossChain(uint8,address,uint256)": FunctionFragment;
+    "transferCrossChain(uint8,address,uint256,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
@@ -48,7 +48,7 @@ export interface ICrossChainERC20MetadataInterface extends utils.Interface {
       | "approve"
       | "balanceOf"
       | "decimals"
-      | "fetchCrossChainGas"
+      | "fetchCrossChainGasLimit"
       | "name"
       | "symbol"
       | "totalSupply"
@@ -71,7 +71,7 @@ export interface ICrossChainERC20MetadataInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
@@ -89,6 +89,7 @@ export interface ICrossChainERC20MetadataInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>
     ]
   ): string;
@@ -106,7 +107,7 @@ export interface ICrossChainERC20MetadataInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "fetchCrossChainGas",
+    functionFragment: "fetchCrossChainGasLimit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
@@ -204,7 +205,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<[BigNumber]>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
@@ -222,6 +223,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
       _chainID: PromiseOrValue<BigNumberish>,
       _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
+      _crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -252,7 +254,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
-  fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+  fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   name(overrides?: CallOverrides): Promise<string>;
 
@@ -270,6 +272,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
     _chainID: PromiseOrValue<BigNumberish>,
     _recipient: PromiseOrValue<string>,
     _amount: PromiseOrValue<BigNumberish>,
+    _crossChainGasPrice: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -300,7 +303,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -318,6 +321,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
       _chainID: PromiseOrValue<BigNumberish>,
       _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
+      _crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -373,7 +377,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
-    fetchCrossChainGas(overrides?: CallOverrides): Promise<BigNumber>;
+    fetchCrossChainGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -391,6 +395,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
       _chainID: PromiseOrValue<BigNumberish>,
       _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
+      _crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -422,7 +427,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    fetchCrossChainGas(
+    fetchCrossChainGasLimit(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -442,6 +447,7 @@ export interface ICrossChainERC20Metadata extends BaseContract {
       _chainID: PromiseOrValue<BigNumberish>,
       _recipient: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
+      _crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
