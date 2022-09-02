@@ -33,16 +33,16 @@ describe("Testing Bridge Contract", function () {
   });
 
   it("Router Crosstalk - Checking SendCrossChain Function", async function () {
-    await this.CrossChainERC20Instance.setCrossChainGas(100000);
-    await this.CrossChainERC20Instance.transferCrossChain(111, this.tester2, 1000);
+    await this.CrossChainERC20Instance.setCrossChainGasLimit(100000);
+    const args = await this.CrossChainERC20Instance.transferCrossChain(111, this.tester2, 1000, 1000000000);
+    console.log(args[0], args[1]);
     let Logs = await this.CrossChainERC20Instance.queryFilter("CrossTalkSend");
+    let Logs1 = await this.bridgeInstance.queryFilter("deposit");
     await this.bridgeInstance.execute(
       this.CrossChainERC20Instance.address,
       Logs[0].args.sourceChain,
       Logs[0].args.sourceAddress,
-      Logs[0].args._selector,
-      Logs[0].args._data,
-      Logs[0].args._hash,
+      Logs1[0].args._data,
     );
     let balanceTester1 = await this.CrossChainERC20Instance.balanceOf(this.tester1);
     let balanceTester2 = await this.CrossChainERC20Instance.balanceOf(this.tester2);

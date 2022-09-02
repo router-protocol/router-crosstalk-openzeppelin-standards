@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@routerprotocol/router-crosstalk/contracts/interfaces/iRouterCrossTalk.sol";
 
 contract GenericHandlerTest {
-    event deposit(uint8 chainID, bytes4 _interface, bytes _data, bytes32 _hash, uint256 _gas, address _feeToken);
+    event deposit(uint8 chainID, bytes _data, uint256 _gasLimit, uint256 _gasPrice, address _feeToken);
 
     function fetch_chainID() external pure returns (uint8) {
         return 111;
@@ -12,13 +12,13 @@ contract GenericHandlerTest {
 
     function genericDeposit(
         uint8 _destChainID,
-        bytes4 _selector,
         bytes memory _data,
-        bytes32 _hash,
-        uint256 _gas,
+        uint256 _gasLimit,
+        uint256 _gasPrice,
         address _feeToken
-    ) external {
-        emit deposit(_destChainID, _selector, _data, _hash, _gas, _feeToken);
+    ) external returns (uint256) {
+        emit deposit(_destChainID, _data, _gasLimit, _gasPrice, _feeToken);
+        return 1;
     }
 
     function execute(

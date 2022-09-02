@@ -31,7 +31,7 @@ export interface GenericHandlerTestInterface extends utils.Interface {
   functions: {
     "execute(address,uint8,address,bytes)": FunctionFragment;
     "fetch_chainID()": FunctionFragment;
-    "genericDeposit(uint8,bytes4,bytes,bytes32,uint256,address)": FunctionFragment;
+    "genericDeposit(uint8,bytes,uint256,uint256,address)": FunctionFragment;
     "linkContract(address,uint8,address)": FunctionFragment;
     "unlinkContract(address,uint8)": FunctionFragment;
   };
@@ -63,8 +63,7 @@ export interface GenericHandlerTestInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>
     ]
@@ -101,7 +100,7 @@ export interface GenericHandlerTestInterface extends utils.Interface {
   ): Result;
 
   events: {
-    "deposit(uint8,bytes4,bytes,bytes32,uint256,address)": EventFragment;
+    "deposit(uint8,bytes,uint256,uint256,address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "deposit"): EventFragment;
@@ -109,14 +108,13 @@ export interface GenericHandlerTestInterface extends utils.Interface {
 
 export interface depositEventObject {
   chainID: number;
-  _interface: string;
   _data: string;
-  _hash: string;
-  _gas: BigNumber;
+  _gasLimit: BigNumber;
+  _gasPrice: BigNumber;
   _feeToken: string;
 }
 export type depositEvent = TypedEvent<
-  [number, string, string, string, BigNumber, string],
+  [number, string, BigNumber, BigNumber, string],
   depositEventObject
 >;
 
@@ -161,10 +159,9 @@ export interface GenericHandlerTest extends BaseContract {
 
     genericDeposit(
       _destChainID: PromiseOrValue<BigNumberish>,
-      _selector: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      _hash: PromiseOrValue<BytesLike>,
-      _gas: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       _feeToken: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -195,10 +192,9 @@ export interface GenericHandlerTest extends BaseContract {
 
   genericDeposit(
     _destChainID: PromiseOrValue<BigNumberish>,
-    _selector: PromiseOrValue<BytesLike>,
     _data: PromiseOrValue<BytesLike>,
-    _hash: PromiseOrValue<BytesLike>,
-    _gas: PromiseOrValue<BigNumberish>,
+    _gasLimit: PromiseOrValue<BigNumberish>,
+    _gasPrice: PromiseOrValue<BigNumberish>,
     _feeToken: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -229,13 +225,12 @@ export interface GenericHandlerTest extends BaseContract {
 
     genericDeposit(
       _destChainID: PromiseOrValue<BigNumberish>,
-      _selector: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      _hash: PromiseOrValue<BytesLike>,
-      _gas: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       _feeToken: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber>;
 
     linkContract(
       _interface: PromiseOrValue<string>,
@@ -252,20 +247,18 @@ export interface GenericHandlerTest extends BaseContract {
   };
 
   filters: {
-    "deposit(uint8,bytes4,bytes,bytes32,uint256,address)"(
+    "deposit(uint8,bytes,uint256,uint256,address)"(
       chainID?: null,
-      _interface?: null,
       _data?: null,
-      _hash?: null,
-      _gas?: null,
+      _gasLimit?: null,
+      _gasPrice?: null,
       _feeToken?: null
     ): depositEventFilter;
     deposit(
       chainID?: null,
-      _interface?: null,
       _data?: null,
-      _hash?: null,
-      _gas?: null,
+      _gasLimit?: null,
+      _gasPrice?: null,
       _feeToken?: null
     ): depositEventFilter;
   };
@@ -283,10 +276,9 @@ export interface GenericHandlerTest extends BaseContract {
 
     genericDeposit(
       _destChainID: PromiseOrValue<BigNumberish>,
-      _selector: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      _hash: PromiseOrValue<BytesLike>,
-      _gas: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       _feeToken: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -318,10 +310,9 @@ export interface GenericHandlerTest extends BaseContract {
 
     genericDeposit(
       _destChainID: PromiseOrValue<BigNumberish>,
-      _selector: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
-      _hash: PromiseOrValue<BytesLike>,
-      _gas: PromiseOrValue<BigNumberish>,
+      _gasLimit: PromiseOrValue<BigNumberish>,
+      _gasPrice: PromiseOrValue<BigNumberish>,
       _feeToken: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

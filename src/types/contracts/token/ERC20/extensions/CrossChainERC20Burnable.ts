@@ -721,7 +721,7 @@ export interface CrossChainERC20Burnable extends BaseContract {
       _amount: PromiseOrValue<BigNumberish>,
       _crossChainGasPrice: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<[boolean, string]>;
 
     transferFrom(
       from: PromiseOrValue<string>,

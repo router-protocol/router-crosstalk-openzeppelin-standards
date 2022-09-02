@@ -43,7 +43,7 @@ contract MyCrossChainERC1155 is CrossChainERC1155 {
         setFeeToken(_feeAddress);
     }
 
-    function setCrossChainGas(uint256 _gas) public onlyOwner {
+    function setCrossChainGasLimit(uint256 _gas) public onlyOwner {
         _setCrossChainGasLimit(_gas);
     }
 

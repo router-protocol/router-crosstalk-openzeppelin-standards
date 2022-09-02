@@ -28,18 +28,24 @@ describe("Testing ERC-1155 Open zeppelin Contract", function () {
   });
 
   it("Router Crosstalk - Checking transferCrossChain Function", async function () {
-    await this.MyCrossChainERC1155Instance.setCrossChainGas(100000);
-    let gas = await this.MyCrossChainERC1155Instance.fetchCrossChainGas();
+    await this.MyCrossChainERC1155Instance.setCrossChainGasLimit(100000);
+    let gas = await this.MyCrossChainERC1155Instance.fetchCrossChainGasLimit();
     console.log("GAS = " + gas.toString());
-    await this.MyCrossChainERC1155Instance.transferCrossChain(111, this.tester2, [1, 2, 3], [5, 5, 5], "0x00");
+    await this.MyCrossChainERC1155Instance.transferCrossChain(
+      111,
+      this.tester2,
+      [1, 2, 3],
+      [5, 5, 5],
+      "0x00",
+      1000000000,
+    );
     let Logs = await this.MyCrossChainERC1155Instance.queryFilter("CrossTalkSend");
+    let Logs1 = await this.bridgeInstance.queryFilter("deposit");
     await this.bridgeInstance.execute(
       this.MyCrossChainERC1155Instance.address,
       Logs[0].args.sourceChain,
       Logs[0].args.sourceAddress,
-      Logs[0].args._selector,
-      Logs[0].args._data,
-      Logs[0].args._hash,
+      Logs1[0].args._data,
     );
     let balanceTester1 = await this.MyCrossChainERC1155Instance.balanceOfBatch(
       [this.tester1, this.tester1, this.tester1],

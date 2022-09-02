@@ -19,5 +19,5 @@ interface ICrossChainERC20 is IERC20 {
         address _recipient,
         uint256 _amount,
         uint256 _crossChainGasPrice
-    ) external returns (bool);
+    ) external returns (bool, bytes32);
 }

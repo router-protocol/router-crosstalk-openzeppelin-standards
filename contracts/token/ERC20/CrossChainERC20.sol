@@ -59,11 +59,11 @@ contract CrossChainERC20 is ERC20, ICrossChainERC20, RouterCrossTalk {
         address _recipient,
         uint256 _amount,
         uint256 _crossChainGasPrice
-    ) public virtual override returns (bool) {
+    ) public virtual override returns (bool, bytes32) {
         require(_recipient != address(0), "CrossChainERC20: Recipient address cannot be null");
         _burn(msg.sender, _amount);
-        _sendCrossChain(_chainID, _recipient, _amount, _crossChainGasPrice);
-        return true;
+        (bool success, bytes32 hash) = _sendCrossChain(_chainID, _recipient, _amount, _crossChainGasPrice);
+        return (success, hash);
     }
 
     /**

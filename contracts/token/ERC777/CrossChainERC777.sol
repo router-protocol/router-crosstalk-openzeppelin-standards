@@ -81,10 +81,17 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
         bytes memory userData,
         bytes memory operatorData,
         uint256 crossChainGasPrice
-    ) internal returns (bool) {
+    ) internal returns (bool, bytes32) {
         burn(amount, userData);
-        _sendCrossChain(chainID, recipient, amount, userData, operatorData, crossChainGasPrice);
-        return true;
+        (bool success, bytes32 hash) = _sendCrossChain(
+            chainID,
+            recipient,
+            amount,
+            userData,
+            operatorData,
+            crossChainGasPrice
+        );
+        return (success, hash);
     }
 
     /**
@@ -111,10 +118,17 @@ contract CrossChainERC777 is ERC777, ICrossChainERC777, RouterCrossTalk {
         bytes memory userData,
         bytes memory operatorData,
         uint256 crossChainGasPrice
-    ) internal returns (bool) {
+    ) internal returns (bool, bytes32) {
         operatorBurn(owner, amount, userData, operatorData);
-        _sendCrossChain(chainID, recipient, amount, userData, operatorData, crossChainGasPrice);
-        return true;
+        (bool success, bytes32 hash) = _sendCrossChain(
+            chainID,
+            recipient,
+            amount,
+            userData,
+            operatorData,
+            crossChainGasPrice
+        );
+        return (success, hash);
     }
 
     /**

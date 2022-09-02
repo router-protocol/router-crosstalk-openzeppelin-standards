@@ -246,6 +246,11 @@ const _abi = [
         name: "",
         type: "bool",
       },
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
     ],
     stateMutability: "nonpayable",
     type: "function",

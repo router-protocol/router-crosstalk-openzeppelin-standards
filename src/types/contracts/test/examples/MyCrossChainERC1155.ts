@@ -60,7 +60,7 @@ export interface MyCrossChainERC1155Interface extends utils.Interface {
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
-    "setCrossChainGas(uint256)": FunctionFragment;
+    "setCrossChainGasLimit(uint256)": FunctionFragment;
     "setFeeAddress(address)": FunctionFragment;
     "setLinker(address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
@@ -89,7 +89,7 @@ export interface MyCrossChainERC1155Interface extends utils.Interface {
       | "safeBatchTransferFrom"
       | "safeTransferFrom"
       | "setApprovalForAll"
-      | "setCrossChainGas"
+      | "setCrossChainGasLimit"
       | "setFeeAddress"
       | "setLinker"
       | "supportsInterface"
@@ -196,7 +196,7 @@ export interface MyCrossChainERC1155Interface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
-    functionFragment: "setCrossChainGas",
+    functionFragment: "setCrossChainGasLimit",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -280,7 +280,7 @@ export interface MyCrossChainERC1155Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setCrossChainGas",
+    functionFragment: "setCrossChainGasLimit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -543,7 +543,7 @@ export interface MyCrossChainERC1155 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    setCrossChainGas(
+    setCrossChainGasLimit(
       _gas: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -680,7 +680,7 @@ export interface MyCrossChainERC1155 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  setCrossChainGas(
+  setCrossChainGasLimit(
     _gas: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -817,7 +817,7 @@ export interface MyCrossChainERC1155 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setCrossChainGas(
+    setCrossChainGasLimit(
       _gas: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -1052,7 +1052,7 @@ export interface MyCrossChainERC1155 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    setCrossChainGas(
+    setCrossChainGasLimit(
       _gas: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -1192,7 +1192,7 @@ export interface MyCrossChainERC1155 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    setCrossChainGas(
+    setCrossChainGasLimit(
       _gas: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

@@ -60,8 +60,6 @@ export type { CrossChainGovernor } from "./contracts/governance/CrossChainGovern
 export { CrossChainGovernor__factory } from "./factories/contracts/governance/CrossChainGovernor__factory";
 export type { ICrossChainGovernor } from "./contracts/governance/ICrossChainGovernor";
 export { ICrossChainGovernor__factory } from "./factories/contracts/governance/ICrossChainGovernor__factory";
-export type { Greeter } from "./contracts/Greeter";
-export { Greeter__factory } from "./factories/contracts/Greeter__factory";
 export type { MyCrossChainERC1155 } from "./contracts/test/examples/MyCrossChainERC1155";
 export { MyCrossChainERC1155__factory } from "./factories/contracts/test/examples/MyCrossChainERC1155__factory";
 export type { MyCrossChainERC20 } from "./contracts/test/examples/MyCrossChainERC20";
